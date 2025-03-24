@@ -1,3 +1,7 @@
+/*
+* Email: shanig7531@gmail.com
+*/
+
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
 
@@ -30,7 +34,7 @@ namespace graph {
 
         private:
         void addEdgeHelper(int src, int dest, int weight);
-        
+
         bool edgeCheck(int src, int dest) const;
     };
 }

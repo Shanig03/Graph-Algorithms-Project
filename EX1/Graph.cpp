@@ -16,7 +16,8 @@ namespace graph {
     }
 
     Graph::~Graph() {
-
+        delete[] neighborsList;
+        delete[] neighborsCounter;
     }
 
     void Graph::addEdge(int src, int dest, int weight) {
@@ -27,63 +28,54 @@ namespace graph {
 
     void Graph::removeEdge(int src, int dest) {
         if (!edgeCheck(src, dest)) {
-            throw std::runtime_error("There is no such edge in the graph");
+            std::cout << "Edge (" << src << ", " << dest << ") does not exist.\n";
+            return;
         }
-
-        int index = -1;
-        for (int i = 0; i < neighborsCounter[src]; ++i){
-            if (dest == neighborsList[src][i].id) {
-                index = i;
+    
+        // Remove `dest` from `src`'s adjacency list
+        for (int i = 0; i < neighborsCounter[src]; ++i) {
+            if (neighborsList[src][i].id == dest) {
+                for (int j = i; j < neighborsCounter[src] - 1; ++j) {
+                    neighborsList[src][j] = neighborsList[src][j + 1]; // Shift elements left
+                }
+                neighborsCounter[src]--;
                 break;
             }
         }
-        // checking that this edge does excist in the graph
-        if (index == -1){
-            return;
-        }
-
-        for (int i = index; i < neighborsCounter[src] - 1; ++i) {
-            // moving the neighbors backward and "running over" the edge the need to be deleted
-            neighborsList[src][i] = neighborsList[src][i + 1]; 
-        }
-
-        // decreasing the counter in the fitting index 
-        neighborsCounter[src]--;
-
-        // for the undirected edge
-        int index = -1;
-        for (int i = 0; i < neighborsCounter[dest]; ++i){
-            if (dest == neighborsList[dest][i].id) {
-                index = i;
+    
+        // Remove `src` from `dest`'s adjacency list (undirected graph)
+        for (int i = 0; i < neighborsCounter[dest]; ++i) {
+            if (neighborsList[dest][i].id == src) {
+                for (int j = i; j < neighborsCounter[dest] - 1; ++j) {
+                    neighborsList[dest][j] = neighborsList[dest][j + 1]; // Shift elements left
+                }
+                neighborsCounter[dest]--;
                 break;
             }
         }
-        // checking that this edge does excist in the graph
-        if (index == -1){
-            return;
-        }
-
-        for (int i = index; i < neighborsCounter[dest] - 1; ++i) {
-            // moving the neighbors backward and "running over" the edge the need to be deleted
-            neighborsList[dest][i] = neighborsList[dest][i + 1]; 
-        }
-
-        // decreasing the counter in the fitting index 
-        neighborsCounter[dest]--;
+    
+        std::cout << "Edge (" << src << ", " << dest << ") removed successfully.\n";
     }
+    
 
 
     void Graph::print_graph() const {
-        for (int i = 0; i < verticsCounter; ++i){
-            std:: cout << "The neighbors for vertic " << i << " are: " << std:: endl;
-            for (int j = 0; j < neighborsCounter[i]; ++j) {
-                std:: cout << neighborsList[i][j].id << "\nwith weight of: " 
-                           << neighborsList[i][j].weight << std:: endl;
+        for (int i = 0; i < verticsCounter; ++i) {
+            std::cout << "Vertex " << i << " has the following neighbors:\n";
+    
+            if (neighborsCounter[i] == 0) {
+                std::cout << "  No neighbors\n";
+            } else {
+                for (int j = 0; j < neighborsCounter[i]; ++j) {
+                    std::cout << "  → Neighbor: " << neighborsList[i][j].id
+                              << " (Weight: " << neighborsList[i][j].weight << ")\n";
+                }
             }
-
+    
+            std::cout << "--------------------------------\n";  // Formatting for clarity
         }
-
     }
+    
 
 
     void Graph::addEdgeHelper(int src, int dest, int weight) {
