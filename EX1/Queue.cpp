@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-Queue::Queue(int size) {
-    capacity = size;
+Queue::Queue(int vertics) {
+    capacity = vertics;
     arr = new int[capacity];
     front = -1;
     end = -1;

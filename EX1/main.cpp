@@ -7,7 +7,6 @@
 #include "Queue.hpp"
 
 int main() {
-    /*
     graph::Graph g(5);   
     g.addEdge(0,3,2); 
     g.addEdge(1,4,1); 
@@ -19,7 +18,6 @@ int main() {
 
     std::cout << "After Deleting the edge (1,4): " << "\n" << std::endl;
     g.print_graph();
-    */
 
     Queue q(5);
     q.enqueue(0);

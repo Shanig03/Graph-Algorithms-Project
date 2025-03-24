@@ -16,9 +16,18 @@ namespace graph {
     }
 
     Graph::~Graph() {
+        // Free each dynamically allocated adjacency list
+        for (int i = 0; i < verticsCounter; ++i) {
+            delete[] neighborsList[i];  // Free each neighbor array
+        }
+        
+        // Free the array of pointers
         delete[] neighborsList;
+        
+        // Free the array storing neighbor counts
         delete[] neighborsCounter;
     }
+    
 
     void Graph::addEdge(int src, int dest, int weight) {
         //i need to add 2 edges- one for each direction, because its a non directed edge.
@@ -77,29 +86,31 @@ namespace graph {
     }
     
 
-
     void Graph::addEdgeHelper(int src, int dest, int weight) {
-        //creating a new list in the size of the current one plus one
-        neighborVertic* coppiedList = new neighborVertic[neighborsCounter[src] + 1];
-
-        // copy the old list to the new one
+        // Create a new list with size increased by 1
+        neighborVertic* copiedList = new neighborVertic[neighborsCounter[src] + 1];
+    
+        // Copy the old list to the new one
         for (int i = 0; i < neighborsCounter[src]; ++i) {
-            coppiedList[i] = neighborsList[src][i];
+            copiedList[i] = neighborsList[src][i];  // Copy elements properly
         }
-
-        //adding the new edge to the new list
-        coppiedList[neighborsCounter[src]].id = dest;
-        coppiedList[neighborsCounter[src]].weight = weight;
-
-        //deleting the old list
-        delete[] neighborsList[src];
-
-        //putting the updated list instead of the old one
-        neighborsList[src] = coppiedList;
-
-        //increasing the counter in the fitting index 
+    
+        // Add the new edge
+        copiedList[neighborsCounter[src]].id = dest;
+        copiedList[neighborsCounter[src]].weight = weight;
+    
+        // Free the old memory **ONLY IF it's not NULL**
+        if (neighborsList[src] != nullptr) {
+            delete[] neighborsList[src];  // Free old list
+        }
+    
+        // Assign the new list
+        neighborsList[src] = copiedList;
+    
+        // Increase the counter
         neighborsCounter[src]++;
     }
+    
 
     bool Graph::edgeCheck(int src, int dest) const {
         for (int i = 0; i < neighborsCounter[src]; ++i) {
