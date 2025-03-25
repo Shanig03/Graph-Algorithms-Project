@@ -5,8 +5,10 @@
 #include <iostream>
 #include "Graph.hpp"
 #include "Queue.hpp"
+#include "Algorithms.hpp"
 
 int main() {
+    /*
     graph::Graph g(5);   
     g.addEdge(0,3,2); 
     g.addEdge(1,4,1); 
@@ -37,6 +39,23 @@ int main() {
     q.display();
 
     std:: cout << q.peek() << std::endl;
+    */
+
+    graph::Graph g(5);   
+    g.addEdge(0,3,2); 
+    g.addEdge(1,4,1); 
+    g.addEdge(4,2,3); 
+    g.addEdge(0,1,3);
+    g.addEdge(3,2,4);
+
+
+    g.print_graph();
+
+    graph::Graph tree = graph::Algorithms::BFS(g, 0);
+
+    tree.print_graph();
+
+    
 
 
     return 0;

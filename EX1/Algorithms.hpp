@@ -11,9 +11,11 @@
 namespace graph {
 
     class Algorithms {
-
-        Graph BFS(Graph g, int src);
         
+        public:
+
+        static Graph BFS(Graph& graph, int startVertex);
+
         Graph DFS(Graph g, int src);
 
         Graph dijkstra(Graph g, int src);

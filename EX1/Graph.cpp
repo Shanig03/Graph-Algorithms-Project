@@ -1,3 +1,7 @@
+/*
+ Email: shanig7531@gmail.com
+*/
+
 #include <iostream>
 #include "Graph.hpp"
 #include <stdexcept>
@@ -14,6 +18,25 @@ namespace graph {
             neighborsCounter[i] = 0;
         }
     }
+
+    Graph::Graph(const Graph& other) {
+        verticsCounter = other.verticsCounter;
+        neighborsList = new neighborVertic*[verticsCounter];
+        neighborsCounter = new int[verticsCounter];
+    
+        for (int i = 0; i < verticsCounter; ++i) {
+            neighborsCounter[i] = other.neighborsCounter[i];
+            if (neighborsCounter[i] > 0) {
+                neighborsList[i] = new neighborVertic[neighborsCounter[i]];
+                for (int j = 0; j < neighborsCounter[i]; ++j) {
+                    neighborsList[i][j] = other.neighborsList[i][j];
+                }
+            } else {
+                neighborsList[i] = nullptr;
+            }
+        }
+    }
+    
 
     Graph::~Graph() {
         // Free each dynamically allocated adjacency list
@@ -122,6 +145,18 @@ namespace graph {
         return false;
     }
 
+    int Graph::getVerticsCounter() {
+        return Graph::verticsCounter;
+    }
+
+    int* Graph::getNeighborsCounter() {
+        return neighborsCounter;
+    }
+
+    neighborVertic** Graph::getNeighborsList(){
+        return neighborsList;
+    }
+    
     
     
 }

@@ -23,6 +23,7 @@ namespace graph {
         
         public:
         Graph(int numOfVertics);
+        Graph(const Graph& other);
 
         ~Graph();
 
@@ -32,10 +33,18 @@ namespace graph {
 
         void print_graph() const;
 
+        int getVerticsCounter();
+
+        int* getNeighborsCounter();
+
+        neighborVertic** getNeighborsList();
+
         private:
         void addEdgeHelper(int src, int dest, int weight);
 
         bool edgeCheck(int src, int dest) const;
+
+        
     };
 }
 
