@@ -44,25 +44,14 @@ int main() {
 
 
 
-    graph::Graph g(5);   
-    g.addEdge(0,3,2); 
-    g.addEdge(1,4,1); 
-    //g.addEdge(4,2,3); 
-    g.addEdge(0,1,3);
-    //g.addEdge(3,2,4);
-
-
-    g.print_graph();
-
+    
     //graph::Graph tree = graph::Algorithms::BFS(g, 0);
 
 
     graph::Graph tree = graph::Algorithms::DFS(g, 4);
 
     tree.print_graph();
-    */
 
-    
 
      // Create a PriorityQueue with capacity of 10 elements
     PriorityQueue pq(10);
@@ -100,7 +89,24 @@ int main() {
     std::cout << "Dequeue: " << pq.dequeue() << std::endl;
     std::cout << "Dequeue: " << pq.dequeue() << std::endl;
     pq.display();  // Should show empty queue
+    */
 
+
+    graph::Graph g(5);   
+    g.addEdge(0,3,2); 
+    g.addEdge(1,4,1); 
+    //g.addEdge(4,2,3); 
+    g.addEdge(0,1,3);
+    //g.addEdge(3,2,4);
+
+
+    g.print_graph();
+
+
+    graph::Graph gr = graph::Algorithms::dijkstra(g, 4);
+
+    gr.print_graph();
+    
     
 
 

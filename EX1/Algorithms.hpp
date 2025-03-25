@@ -20,7 +20,7 @@ namespace graph {
 
         static void dfsVisit(Graph& graph, int current, bool* visited, Graph& dfsTree);
 
-        Graph dijkstra(Graph g, int src);
+        static Graph dijkstra(Graph g, int src);
 
         Graph prim(Graph g);
         

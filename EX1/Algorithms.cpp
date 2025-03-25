@@ -5,6 +5,10 @@ Email: shanig7531@gmail.com
 #include "Algorithms.hpp"
 #include "Queue.hpp"
 #include "Graph.hpp"
+#include "PriorityQueue.hpp"
+#include <limits>
+
+const int INF = 1e9;
 
 namespace graph {
 
@@ -71,6 +75,54 @@ namespace graph {
                 dfsVisit(graph, neighbor, visited, dfsTree);  // Recursively call DFS for the neighbor
             }
         }
+    }
+
+
+    Graph Algorithms::dijkstra(Graph g, int src) {
+        int V = g.getVerticsCounter();
+        int* dist = new int[V];  // Distance array
+        bool* visited = new bool[V];  // Visited array
+    
+        // Initialize distances to INF and visited to false
+        for (int i = 0; i < V; i++) {
+            dist[i] = INF;
+            visited[i] = false;
+        }
+        dist[src] = 0;  // Distance to source is 0
+    
+        PriorityQueue pq(V);
+        pq.enqueue(src);
+    
+        while (!pq.isEmpty()) {
+            int u = pq.dequeue();  // Get the vertex with the smallest distance
+            visited[u] = true;
+    
+            // Process all neighbors
+            neighborVertic* neighbors = g.getNeighborsList()[u];
+            int neighborCount = g.getNeighborsCounter()[u];
+    
+            for (int i = 0; i < neighborCount; i++) {
+                int v = neighbors[i].id;
+                int weight = neighbors[i].weight;
+    
+                if (!visited[v] && dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    pq.enqueue(v);
+                }
+            }
+        }
+    
+        // Print shortest distances
+        std::cout << "Vertex   Distance from Source " << src << std::endl;
+        for (int i = 0; i < V; i++) {
+            std::cout << i << "\t" << (dist[i] == INF ? -1 : dist[i]) << std::endl;
+        }
+    
+        // Clean up dynamically allocated memory
+        delete[] dist;
+        delete[] visited;
+    
+        return g;  // Returning Graph (you may modify based on your needs)
     }
 
 
