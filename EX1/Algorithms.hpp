@@ -1,5 +1,5 @@
 /*
-* Email: shanig7531@gmail.com
+Email: shanig7531@gmail.com
 */
 
 #ifndef ALGORITHMS_HPP
@@ -11,18 +11,22 @@
 namespace graph {
 
     class Algorithms {
-        
+
         public:
 
         static Graph BFS(Graph& graph, int startVertex);
 
-        Graph DFS(Graph g, int src);
+        static Graph DFS(Graph& graph, int startVertex);
+
+        static void dfsVisit(Graph& graph, int current, bool* visited, Graph& dfsTree);
 
         Graph dijkstra(Graph g, int src);
 
         Graph prim(Graph g);
         
         Graph kruskal(Graph g);
+
+
 
     };
 

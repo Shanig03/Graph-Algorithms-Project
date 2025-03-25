@@ -1,4 +1,6 @@
-
+/*
+Email: shanig7531@gmail.com
+*/
 
 #include "Algorithms.hpp"
 #include "Queue.hpp"
@@ -37,8 +39,39 @@ namespace graph {
         return bfsTree;
     }
     
-        
 
+
+    Graph Algorithms::DFS(Graph& graph, int startVertex) {
+        int numVertices = graph.getVerticsCounter();
+        Graph dfsTree(numVertices);  // The tree graph to return
+        bool* visited = new bool[numVertices]();  // Initialize all to false
+        
+        // Call the recursive DFS helper function
+        dfsVisit(graph, startVertex, visited, dfsTree);
+        
+        delete[] visited;
+        return dfsTree;
+    }
+
+    // Recursive helper function for DFS
+    void Algorithms::dfsVisit(Graph& graph, int current, bool* visited, Graph& dfsTree) {
+        visited[current] = true;  // Mark the current vertex as visited
+        
+        // Traverse the adjacency list of the current vertex
+        int* neighborsCounter = graph.getNeighborsCounter();
+        neighborVertic** neighborsList = graph.getNeighborsList();
+        
+        for (int i = 0; i < neighborsCounter[current]; ++i) {
+            int neighbor = neighborsList[current][i].id;
+            int weight = neighborsList[current][i].weight;
+            
+            if (!visited[neighbor]) {
+                // Add the edge to the DFS tree and recurse on the neighbor
+                dfsTree.addEdge(current, neighbor, weight);
+                dfsVisit(graph, neighbor, visited, dfsTree);  // Recursively call DFS for the neighbor
+            }
+        }
+    }
 
 
 

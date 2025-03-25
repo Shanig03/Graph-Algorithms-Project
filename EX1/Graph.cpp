@@ -1,5 +1,5 @@
 /*
- Email: shanig7531@gmail.com
+Email: shanig7531@gmail.com
 */
 
 #include <iostream>
