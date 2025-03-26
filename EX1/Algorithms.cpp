@@ -6,7 +6,6 @@ Email: shanig7531@gmail.com
 #include "Queue.hpp"
 #include "Graph.hpp"
 #include "PriorityQueue.hpp"
-#include <limits>
 
 const int INF = 1e9;
 
@@ -78,52 +77,60 @@ namespace graph {
     }
 
 
-    Graph Algorithms::dijkstra(Graph g, int src) {
+    Graph Algorithms::dijkstra(Graph& g, int src) {
         int V = g.getVerticsCounter();
-        int* dist = new int[V];  // Distance array
-        bool* visited = new bool[V];  // Visited array
-    
-        // Initialize distances to INF and visited to false
+        int* dist = new int[V];     // Distance array
+        int* parent = new int[V];   // To store shortest path tree
+        bool* visited = new bool[V]; // Visited array
+
+        // Initialize distances to INF, visited to false, and parent to -1
         for (int i = 0; i < V; i++) {
             dist[i] = INF;
             visited[i] = false;
+            parent[i] = -1;
         }
-        dist[src] = 0;  // Distance to source is 0
-    
+        dist[src] = 0; // Distance to source is 0
+
         PriorityQueue pq(V);
-        pq.enqueue(src);
-    
+        pq.enqueue(src, 0); // Enqueue source vertex with distance 0
+
         while (!pq.isEmpty()) {
-            int u = pq.dequeue();  // Get the vertex with the smallest distance
+            int u = pq.dequeue(); // Get vertex with smallest distance
             visited[u] = true;
-    
-            // Process all neighbors
+
             neighborVertic* neighbors = g.getNeighborsList()[u];
             int neighborCount = g.getNeighborsCounter()[u];
-    
+
             for (int i = 0; i < neighborCount; i++) {
                 int v = neighbors[i].id;
                 int weight = neighbors[i].weight;
-    
-                if (!visited[v] && dist[u] + weight < dist[v]) {
+
+                if (!visited[v] && dist[u] != INF && dist[u] + weight < dist[v]) {
                     dist[v] = dist[u] + weight;
-                    pq.enqueue(v);
+                    parent[v] = u;
+                    pq.enqueue(v, dist[v]);  // Enqueue with updated distance
                 }
             }
         }
-    
-        // Print shortest distances
-        std::cout << "Vertex   Distance from Source " << src << std::endl;
+
+        // Create a shortest path tree graph
+        Graph shortestPathTree(V);
         for (int i = 0; i < V; i++) {
-            std::cout << i << "\t" << (dist[i] == INF ? -1 : dist[i]) << std::endl;
+            if (parent[i] != -1) {
+                shortestPathTree.addEdge(parent[i], i, dist[i] - dist[parent[i]]);
+            }
         }
-    
+
         // Clean up dynamically allocated memory
         delete[] dist;
+        delete[] parent;
         delete[] visited;
-    
-        return g;  // Returning Graph (you may modify based on your needs)
+
+        return shortestPathTree;  // Return the shortest path tree
     }
+    
+    
+    
 
 
 

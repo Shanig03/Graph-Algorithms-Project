@@ -95,15 +95,17 @@ int main() {
     graph::Graph g(5);   
     g.addEdge(0,3,2); 
     g.addEdge(1,4,1); 
-    //g.addEdge(4,2,3); 
+    g.addEdge(4,2,3); 
     g.addEdge(0,1,3);
-    //g.addEdge(3,2,4);
+    g.addEdge(3,2,4);
+    g.addEdge(0,1,5);
+    g.addEdge(4,3,1);
 
 
     g.print_graph();
 
 
-    graph::Graph gr = graph::Algorithms::dijkstra(g, 4);
+    graph::Graph gr = graph::Algorithms::dijkstra(g, 0);
 
     gr.print_graph();
     

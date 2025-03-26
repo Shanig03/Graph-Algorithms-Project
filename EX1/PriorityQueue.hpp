@@ -1,31 +1,29 @@
-/*
-Email: shanig7531@gmail.com
-*/
+#ifndef PRIORITYQUEUE_HPP
+#define PRIORITYQUEUE_HPP
 
-#ifndef PRIORITY_QUEUE_HPP
-#define PRIORITY_QUEUE_HPP
+#include <stdexcept>
+#include <iostream>
 
 class PriorityQueue {
 private:
-    int* heap;       // Array to store the heap elements
-    int capacity;    // Capacity of the heap (max number of elements)
-    int size;        // Current number of elements in the heap
+    int* heap;         // Stores the vertex indices
+    int* distances;    // Stores the corresponding distances of each vertex
+    int capacity;
+    int size;
 
-    // Helper functions to maintain heap property
     void heapifyUp(int index);
     void heapifyDown(int index);
 
 public:
-    // Constructor and Destructor
-    PriorityQueue(int capacity);
+    PriorityQueue(int cap);
     ~PriorityQueue();
 
-    // Basic operations
-    void enqueue(int value);  // Add element
-    int dequeue(); // Remove and return the min element
-    int peek(); // Return the min element without removing it
-    bool isEmpty(); // Check if the queue is empty
-    void display(); // Display the elements in the priority queue
+    void enqueue(int vertex, int dist);
+    int dequeue();
+    bool isEmpty();
+    void updateDistance(int vertex, int newDist);
+    int peek();
+    void display();
 };
 
-#endif
+#endif // PRIORITYQUEUE_HPP
