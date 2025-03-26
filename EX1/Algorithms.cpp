@@ -77,6 +77,16 @@ namespace graph {
     }
 
 
+        // Function to relax an edge (u, v) with weight w
+    void Algorithms::relax(int u, int v, int weight, int* dist, int* parent, PriorityQueue& pq) {
+        // If the distance to v through u is shorter than the current distance
+        if (dist[u] != INF && dist[u] + weight < dist[v]) {
+            dist[v] = dist[u] + weight; // Update distance
+            parent[v] = u; // Update parent
+            pq.enqueue(v, dist[v]); // Enqueue v with updated distance
+        }
+    }
+
     Graph Algorithms::dijkstra(Graph& g, int src) {
         int V = g.getVerticsCounter();
         int* dist = new int[V];     // Distance array
@@ -105,11 +115,8 @@ namespace graph {
                 int v = neighbors[i].id;
                 int weight = neighbors[i].weight;
 
-                if (!visited[v] && dist[u] != INF && dist[u] + weight < dist[v]) {
-                    dist[v] = dist[u] + weight;
-                    parent[v] = u;
-                    pq.enqueue(v, dist[v]);  // Enqueue with updated distance
-                }
+                // Use the relax function to update the distance and parent
+                relax(u, v, weight, dist, parent, pq);
             }
         }
 
@@ -128,6 +135,7 @@ namespace graph {
 
         return shortestPathTree;  // Return the shortest path tree
     }
+
     
     
     

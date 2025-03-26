@@ -7,6 +7,7 @@ Email: shanig7531@gmail.com
 
 #include <iostream>
 #include "Graph.hpp"
+#include "PriorityQueue.hpp"
 
 namespace graph {
 
@@ -21,6 +22,8 @@ namespace graph {
         static void dfsVisit(Graph& graph, int current, bool* visited, Graph& dfsTree);
 
         static Graph dijkstra(Graph& g, int src);
+
+        static void relax(int u, int v, int weight, int* dist, int* parent, PriorityQueue& pq);
 
         Graph prim(Graph g);
         

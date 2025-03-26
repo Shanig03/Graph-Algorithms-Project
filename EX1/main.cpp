@@ -105,7 +105,7 @@ int main() {
     g.print_graph();
 
 
-    graph::Graph gr = graph::Algorithms::dijkstra(g, 0);
+    graph::Graph gr = graph::Algorithms::dijkstra(g, 4);
 
     gr.print_graph();
     
