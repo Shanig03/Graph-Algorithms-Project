@@ -1,6 +1,8 @@
-# Compiler and flags
-CXX = g++
-CXXFLAGS = -std=c++11 -Wall -g
+
+# Email: shanig7531@gmail.com
+
+CXX = clang++ # Compiler, i need to decided which compiler to use - g++ or clang++, they are both working
+CXXFLAGS = -std=c++11 -Wall -g # Flags
 
 all: Main
 
@@ -25,7 +27,6 @@ main.o: main.cpp Algorithms.hpp Graph.hpp PriorityQueue.hpp Queue.hpp
 valgrind: Main
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./Main
 
-# Clean rule to remove object files and the executable
 clean:
 	rm -f Graph.o Algorithms.o Queue.o PriorityQueue.o main.o Main
 

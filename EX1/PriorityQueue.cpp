@@ -1,3 +1,7 @@
+/*
+Email: shanig7531@gmail.com
+*/
+
 #include "PriorityQueue.hpp"
 #include <iostream>
 #include <stdexcept>

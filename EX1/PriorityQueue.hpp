@@ -1,3 +1,7 @@
+/*
+Email: shanig7531@gmail.com
+*/
+
 #ifndef PRIORITYQUEUE_HPP
 #define PRIORITYQUEUE_HPP
 

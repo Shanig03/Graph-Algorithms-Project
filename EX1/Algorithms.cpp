@@ -7,7 +7,7 @@ Email: shanig7531@gmail.com
 #include "Graph.hpp"
 #include "PriorityQueue.hpp"
 
-const int INF = 1e9;
+const int INF = 1e9; // 1 billion, used to represent infinity
 
 namespace graph {
 
