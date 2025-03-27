@@ -19,6 +19,8 @@ namespace graph {
         }
     }
 
+
+    // check this
     Graph::Graph(const Graph& other) {
         verticsCounter = other.verticsCounter;
         neighborsList = new neighborVertic*[verticsCounter];
@@ -54,9 +56,34 @@ namespace graph {
     
 
     void Graph::addEdge(int src, int dest, int weight) {
-        //i need to add 2 edges- one for each direction, because its a non directed edge.
+        // Checking if the edge already exist
+        if(edgeCheck(src, dest)){
+            std:: cout << "This edge ia already existing" << std::endl;
+            return;
+        }
+        if (!vertixCheck(src) || !vertixCheck(dest)) {
+            std:: cout << "One of the vertecies does not exict in this graph" << std::endl;
+            return;
+        }
+        
+        //i need to add 2 edges- one for each direction, because its a undirected graph.
         addEdgeHelper(src, dest, weight);
         addEdgeHelper(dest, src, weight);
+    }
+
+    void Graph::addDirectedEdge(int src, int dest, int weight) {
+        // Checking if the edge already exist
+        if(edgeCheck(src, dest)){
+            std:: cout << "This edge ia already existing" << std::endl;
+            return;
+        }
+        if (!vertixCheck(src) || !vertixCheck(dest)) {
+            std:: cout << "One of the vertecies does not exict in this graph" << std::endl;
+            return;
+        }
+        
+        //i need to add 2 edges- one for each direction, because its a undirected graph.
+        addEdgeHelper(src, dest, weight);
     }
 
     void Graph::removeEdge(int src, int dest) {
@@ -65,7 +92,7 @@ namespace graph {
             return;
         }
     
-        // Remove `dest` from `src`'s adjacency list
+        // Remove dest from src adjacency list
         for (int i = 0; i < neighborsCounter[src]; ++i) {
             if (neighborsList[src][i].id == dest) {
                 for (int j = i; j < neighborsCounter[src] - 1; ++j) {
@@ -76,7 +103,7 @@ namespace graph {
             }
         }
     
-        // Remove `src` from `dest`'s adjacency list (undirected graph)
+        // Remove src from dest adjacency list (undirected graph)
         for (int i = 0; i < neighborsCounter[dest]; ++i) {
             if (neighborsList[dest][i].id == src) {
                 for (int j = i; j < neighborsCounter[dest] - 1; ++j) {
@@ -91,7 +118,7 @@ namespace graph {
     }
     
 
-
+    // Print the graph in a form of adj list
     void Graph::print_graph() const {
         for (int i = 0; i < verticsCounter; ++i) {
             std::cout << "Vertex " << i << " has the following neighbors:\n";
@@ -105,7 +132,7 @@ namespace graph {
                 }
             }
     
-            std::cout << "--------------------------------\n";  // Formatting for clarity
+            std::cout << "--------------------------------\n";
         }
     }
     
@@ -123,7 +150,7 @@ namespace graph {
         copiedList[neighborsCounter[src]].id = dest;
         copiedList[neighborsCounter[src]].weight = weight;
     
-        // Free the old memory **ONLY IF it's not NULL**
+        // Free the old memory only of it's not null.
         if (neighborsList[src] != nullptr) {
             delete[] neighborsList[src];  // Free old list
         }
@@ -136,6 +163,7 @@ namespace graph {
     }
     
 
+    // Checks whether the edge already exicest
     bool Graph::edgeCheck(int src, int dest) const {
         for (int i = 0; i < neighborsCounter[src]; ++i) {
 
@@ -156,6 +184,14 @@ namespace graph {
 
     neighborVertic** Graph::getNeighborsList(){
         return neighborsList;
+    }
+
+    // Check if the vertix exict
+    bool Graph::vertixCheck(int v){
+        if (v < verticsCounter) {
+            return true;
+        }
+        return false;
     }
     
     
