@@ -22,6 +22,9 @@ PriorityQueue.o: PriorityQueue.cpp PriorityQueue.hpp
 main.o: main.cpp Algorithms.hpp Graph.hpp PriorityQueue.hpp Queue.hpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
+valgrind: Main
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./Main
+
 # Clean rule to remove object files and the executable
 clean:
 	rm -f Graph.o Algorithms.o Queue.o PriorityQueue.o main.o Main
