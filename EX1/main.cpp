@@ -98,18 +98,37 @@ int main() {
     g.addEdge(4,2,3); 
     g.addEdge(0,1,3);
     g.addEdge(3,2,4);
-    g.addEdge(0,1,5);
     g.addEdge(4,3,1);
 
 
-    g.print_graph();
-
-
-    graph::Graph gr = graph::Algorithms::dijkstra(g, 4);
-
+    std::cout << "DFS" << std::endl;
+    graph::Graph gr = graph::Algorithms::DFS(g, 0);
     gr.print_graph();
-    
-    
+
+
+    std::cout << "BFS" << std::endl;
+    graph::Graph gr2 = graph::Algorithms::BFS(g, 0);
+    gr2.print_graph();
+
+    std::cout << "dijkstra" << std::endl;
+    graph::Graph gr3 = graph::Algorithms::dijkstra(g, 0);
+    gr3.print_graph();
+
+    graph::Graph pg(6);   
+    pg.addEdge(0, 1, 4); 
+    pg.addEdge(0, 2, 3); 
+    pg.addEdge(1, 2, 1); 
+    pg.addEdge(1, 3, 2); 
+    pg.addEdge(2, 3, 4); 
+    pg.addEdge(3, 4, 6); 
+    pg.addEdge(4, 5, 5); 
+    pg.addEdge(2, 5, 7);
+
+
+    std::cout << "prim" << std::endl;
+    graph::Graph gr4 = graph::Algorithms::prim(pg);
+    gr4.print_graph();
+
 
 
     return 0;

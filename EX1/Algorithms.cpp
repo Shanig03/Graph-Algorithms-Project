@@ -139,5 +139,140 @@ namespace graph {
     }
 
 
+    /*
+
+
+    Graph Algorithms::prim(Graph& g) {
+        int numVertices = g.getVerticsCounter();  // Number of vertices in the graph
+    
+        // Create a priority queue to select the minimum weight edge
+        PriorityQueue pq(numVertices);
+    
+        // Array to track the minimum weight of edges connecting vertices to the MST
+        int* minEdge = new int[numVertices];
+        // Array to track the parent vertex for each vertex in the MST
+        int* parent = new int[numVertices];
+        // Array to track whether a vertex is in the MST or not
+        bool* inMST = new bool[numVertices];
+        // Array to store the resulting MST (edges)
+        Graph mst(numVertices);
+    
+        // Initialize all values to infinity and inMST to false
+        for (int i = 0; i < numVertices; ++i) {
+            minEdge[i] = INF;
+            inMST[i] = false;
+            parent[i] = -1;  // No parent initially
+        }
+    
+        // Start from vertex 0
+        int startVertex = 0;
+        minEdge[startVertex] = 0;
+        pq.enqueue(startVertex, 0);
+    
+        while (!pq.isEmpty()) {
+            // Get the vertex with the minimum weight edge
+            int u = pq.dequeue();
+            inMST[u] = true;  // Include vertex u in MST
+    
+            // Traverse all neighbors of u
+            for (int i = 0; i < g.getNeighborsCounter()[u]; ++i) {
+                int v = g.getNeighborsList()[u][i].id;
+                int weight = g.getNeighborsList()[u][i].weight;
+    
+                // If v is not in MST and the weight of edge (u, v) is smaller than the current minEdge[v]
+                if (!inMST[v] && weight < minEdge[v]) {
+                    minEdge[v] = weight;
+                    parent[v] = u;  // Set u as the parent of v
+                    pq.enqueue(v, minEdge[v]); // Add v to the priority queue
+                }
+            }
+        }
+    
+        // Add edges to MST based on the parent array using addDirectedEdge
+        for (int v = 1; v < numVertices; ++v) {
+            int u = parent[v];
+            if (u != -1) {
+                // Add directed edge (u, v) with the weight of minEdge[v] to the MST
+                mst.addDirectedEdge(u, v, minEdge[v]);
+            }
+        }
+    
+        // Clean up
+        delete[] minEdge;
+        delete[] inMST;
+        delete[] parent;
+    
+        return mst;  // Return the MST
+    }
+    */
+
+    Graph Algorithms::prim(Graph& g) {
+        int numVertices = g.getVerticsCounter();  // Number of vertices in the graph
+    
+        // Create a priority queue to select the minimum weight edge
+        PriorityQueue pq(numVertices);
+    
+        // Array to track the minimum weight of edges connecting vertices to the MST
+        int* minEdge = new int[numVertices];
+        // Array to track the parent vertex for each vertex in the MST
+        int* parent = new int[numVertices];
+        // Array to track whether a vertex is in the MST or not
+        bool* inMST = new bool[numVertices];
+        // Array to store the resulting MST (edges)
+        Graph mst(numVertices);
+    
+        // Initialize all values to infinity and inMST to false
+        for (int i = 0; i < numVertices; ++i) {
+            minEdge[i] = INF;
+            inMST[i] = false;
+            parent[i] = -1;  // No parent initially
+        }
+    
+        // Start from vertex 0
+        int startVertex = 0;
+        minEdge[startVertex] = 0;
+        pq.enqueue(startVertex, 0);
+    
+        while (!pq.isEmpty()) {
+            // Get the vertex with the minimum weight edge
+            int u = pq.dequeue();
+            inMST[u] = true;  // Include vertex u in MST
+    
+            // Traverse all neighbors of u
+            for (int i = 0; i < g.getNeighborsCounter()[u]; ++i) {
+                int v = g.getNeighborsList()[u][i].id;
+                int weight = g.getNeighborsList()[u][i].weight;
+    
+                // If v is not in MST and the weight of edge (u, v) is smaller than the current minEdge[v]
+                if (!inMST[v] && weight < minEdge[v]) {
+                    minEdge[v] = weight;
+                    parent[v] = u;  // Set u as the parent of v
+                    pq.enqueue(v, minEdge[v]); // Add v to the priority queue
+                }
+            }
+        }
+    
+        // Add edges to MST based on the parent array using addEdge for directed edges
+        for (int v = 1; v < numVertices; ++v) {
+            int u = parent[v];
+            if (u != -1) {
+                // Add directed edge (u, v) with the weight of minEdge[v] to the MST
+                mst.addEdge(u, v, minEdge[v]);  // Add edge from u to v
+            }
+        }
+    
+        // Clean up
+        delete[] minEdge;
+        delete[] inMST;
+        delete[] parent;
+    
+        return mst;  // Return the MST
+    }
+    
+
+    
+    
+
+
 
 };

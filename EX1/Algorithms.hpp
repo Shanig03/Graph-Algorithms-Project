@@ -25,7 +25,7 @@ namespace graph {
 
         static void relax(int u, int v, int weight, int* dist, int* parent, PriorityQueue& pq);
 
-        Graph prim(Graph g);
+        static Graph prim(Graph& g);
         
         Graph kruskal(Graph g);
 

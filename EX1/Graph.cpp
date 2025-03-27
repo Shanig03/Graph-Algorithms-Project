@@ -56,25 +56,30 @@ namespace graph {
     
 
     void Graph::addEdge(int src, int dest, int weight) {
-        // Checking if the edge already exist
-        if(edgeCheck(src, dest)){
-            std:: cout << "This edge ia already existing" << std::endl;
-            return;
-        }
         if (!vertixCheck(src) || !vertixCheck(dest)) {
-            std:: cout << "One of the vertecies does not exict in this graph" << std::endl;
+            std::cout << "One of the vertices does not exist in this graph" << std::endl;
             return;
         }
-        
-        //i need to add 2 edges- one for each direction, because its a undirected graph.
+    
+        // Ensure edge does not exist before adding (only check src → dest)
+        if (edgeCheck(src, dest)) {
+            std::cout << "This edge is already exist" << std::endl;
+            return;
+        }
+    
+        // Add the edge in both directions for an undirected graph
         addEdgeHelper(src, dest, weight);
         addEdgeHelper(dest, src, weight);
     }
+    
+    
+    
+    
 
     void Graph::addDirectedEdge(int src, int dest, int weight) {
         // Checking if the edge already exist
         if(edgeCheck(src, dest)){
-            std:: cout << "This edge ia already existing" << std::endl;
+            std:: cout << "This edge is already exist" << std::endl;
             return;
         }
         if (!vertixCheck(src) || !vertixCheck(dest)) {
@@ -82,7 +87,6 @@ namespace graph {
             return;
         }
         
-        //i need to add 2 edges- one for each direction, because its a undirected graph.
         addEdgeHelper(src, dest, weight);
     }
 
@@ -164,15 +168,17 @@ namespace graph {
     
 
     // Checks whether the edge already exicest
-    bool Graph::edgeCheck(int src, int dest) const {
+    bool Graph::edgeCheck(int src, int dest) const {        
         for (int i = 0; i < neighborsCounter[src]; ++i) {
-
             if (neighborsList[src][i].id == dest) {
-                return true;
+                return true;  // Edge exists
             }
         }
-        return false;
+        return false;  // Edge does not exist
     }
+    
+    
+    
 
     int Graph::getVerticsCounter() {
         return Graph::verticsCounter;

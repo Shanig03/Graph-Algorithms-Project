@@ -37,7 +37,6 @@ void Queue::enqueue(int value) {
     end = (end + 1) % capacity;  // Circular increment
     arr[end] = value;
     size++;  // Increment the size
-    std::cout << value << " enqueued to the queue." << std::endl;
 }
 
 int Queue::dequeue() {
