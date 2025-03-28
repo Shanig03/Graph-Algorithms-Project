@@ -91,7 +91,7 @@ int main() {
     pq.display();  // Should show empty queue
     */
 
-
+    /*
     graph::Graph g(5);   
     g.addEdge(0,3,2); 
     g.addEdge(1,4,1); 
@@ -132,4 +132,49 @@ int main() {
 
 
     return 0;
+
+    */
+
+    graph::Graph g(5);
+    g.addEdge(0, 1, 2);
+    g.addEdge(0, 2, 4);
+    g.addEdge(1, 2, 1);
+    g.addEdge(1, 3, 7);
+    g.addEdge(2, 4, 3);
+    g.addEdge(3, 4, 1);
+
+    graph::Graph g62(5);
+    g62.addEdge(0, 1, -2);
+    g62.addEdge(0, 2, 4);
+    g62.addEdge(1, 2, -1);
+    g62.addEdge(1, 3, 7);
+    g62.addEdge(2, 4, 3);
+    g62.addEdge(3, 4, 1);
+
+    std::cout << "Original Graph:" << std::endl;
+    g62.print_graph();
+
+    std::cout << "\n--- BFS (from 0) ---\n";
+    graph::Graph bfsTree = graph::Algorithms::BFS(g62, 0);
+    bfsTree.print_graph();
+
+    std::cout << "\n--- DFS (from 0) ---\n";
+    graph::Graph dfsTree = graph::Algorithms::DFS(g62, 0);
+    dfsTree.print_graph();
+
+    std::cout << "\n--- Dijkstra (from 0) ---\n";
+    graph::Graph dijkstraTree = graph::Algorithms::dijkstra(g62, 0);
+    dijkstraTree.print_graph();
+
+    std::cout << "\n--- Prim ---\n";
+    graph::Graph primTree = graph::Algorithms::prim(g62);
+    primTree.print_graph();
+
+    std::cout << "\n--- Kruskal ---\n";
+    graph::Graph kruskalTree = graph::Algorithms::kruskal(g62);
+    kruskalTree.print_graph();
+
+
+    return 0;
+   
 }

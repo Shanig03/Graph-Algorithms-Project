@@ -9,6 +9,10 @@ Email: shanig7531@gmail.com
 #include "Graph.hpp"
 #include "PriorityQueue.hpp"
 
+struct Edge {
+    int src, dest, weight;
+};
+
 namespace graph {
 
     class Algorithms {
@@ -27,7 +31,13 @@ namespace graph {
 
         static Graph prim(Graph& g);
         
-        Graph kruskal(Graph g);
+        static Graph kruskal(Graph& g);
+
+        static void sortEdges(Edge* edges, int edgeCount);
+
+        static void swap(Edge &a, Edge &b); 
+
+
 
 
 

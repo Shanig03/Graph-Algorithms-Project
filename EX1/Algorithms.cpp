@@ -6,6 +6,7 @@ Email: shanig7531@gmail.com
 #include "Queue.hpp"
 #include "Graph.hpp"
 #include "PriorityQueue.hpp"
+#include "UnionFind.hpp"
 
 const int INF = 1e9; // 1 billion, used to represent infinity
 
@@ -240,6 +241,12 @@ namespace graph {
             for (int i = 0; i < neighborCount; i++) {
                 int v = neighbors[i].id;
                 int weight = neighbors[i].weight;
+
+                if (weight < 0) {
+                    std::cout << "Dijkstra algorithem can't use negative weights" << std::endl;
+                    graph::Graph g(0);
+                    return g;
+                }
     
                 // Use the relax function to update the distance and parent
                 relax(u, v, weight, dist, parent, pq);
@@ -344,16 +351,16 @@ namespace graph {
     Graph Algorithms::prim(Graph& g) {
         int numVertices = g.getVerticsCounter();  // Number of vertices in the graph
     
-        // Create a priority queue to select the minimum weight edge
         PriorityQueue pq(numVertices);
     
-        // Array to track the minimum weight of edges connecting vertices to the MST
+        // Track the minimum weight of edges connecting vertices to the MST
         int* minEdge = new int[numVertices];
-        // Array to track the parent vertex for each vertex in the MST
+        // Track the parent vertex for each vertex in the MST
         int* parent = new int[numVertices];
-        // Array to track whether a vertex is in the MST or not
+        // Track whether a vertex is in the MST or not
         bool* inMST = new bool[numVertices];
-        // Array to store the resulting MST (edges)
+
+        // Store the resulting MST (edges)
         Graph mst(numVertices);
     
         // Initialize all values to infinity and inMST to false
@@ -392,19 +399,83 @@ namespace graph {
             int u = parent[v];
             if (u != -1) {
                 // Add directed edge (u, v) with the weight of minEdge[v] to the MST
-                mst.addEdge(u, v, minEdge[v]);  // Add edge from u to v
+                mst.addEdge(u, v, minEdge[v]); 
             }
         }
     
-        // Clean up
         delete[] minEdge;
         delete[] inMST;
         delete[] parent;
     
-        return mst;  // Return the MST
+        return mst;
     }
     
 
+
+    // Kruskal's algorithm to find the Minimum Spanning Tree
+    Graph Algorithms::kruskal(Graph& g) {
+        int V = g.getVerticsCounter();
+        UnionFind uf(V);
+        Graph mst(V);
+
+        Edge* edges = new Edge[V * (V - 1) / 2]; // Maximum possible edges in an undirected graph
+        int edgeCount = 0;
+
+        // Collect all edges from the graph
+        for (int u = 0; u < V; ++u) {
+            neighborVertic* neighbors = g.getNeighborsList()[u];
+            int neighborCount = g.getNeighborsCounter()[u];
+
+            for (int i = 0; i < neighborCount; ++i) {
+                int v = neighbors[i].id;
+                int weight = neighbors[i].weight;
+
+                if (u < v) {  // Avoid duplicate edges in undirected graph
+                    edges[edgeCount++] = {u, v, weight};
+                }
+            }
+        }
+
+        // Sort edges by weight
+        sortEdges(edges, edgeCount);
+
+        // Process edges and build the MST
+        for (int i = 0; i < edgeCount; ++i) {
+            int u = edges[i].src;
+            int v = edges[i].dest;
+
+            if (uf.find(u) != uf.find(v)) {
+                mst.addEdge(u, v, edges[i].weight);
+                uf.unionSets(u, v);
+            }
+        }
+
+        delete[] edges;
+        return mst;
+    }
+    
+
+
+    // Sorting edges using selection sort
+    void Algorithms::sortEdges(Edge* edges, int edgeCount) {
+        for (int i = 0; i < edgeCount - 1; ++i) {
+            int minIndex = i;
+            for (int j = i + 1; j < edgeCount; ++j) {
+                if (edges[j].weight < edges[minIndex].weight) {
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                swap(edges[i], edges[minIndex]);
+            }
+        }
+    }
+
+    void Algorithms::swap(Edge &a, Edge &b) {
+        Edge temp = a;
+        a = b;
+        b = temp;
+    }
     
     
 
