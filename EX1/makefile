@@ -26,10 +26,20 @@ UnionFind.o: UnionFind.cpp UnionFind.hpp
 main.o: main.cpp Algorithms.hpp Graph.hpp PriorityQueue.hpp Queue.hpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
+	# Add test rule
+Test.o: Test.cpp doctest.h Graph.hpp Algorithms.hpp Queue.hpp PriorityQueue.hpp
+	$(CXX) $(CXXFLAGS) -c Test.cpp
+
+Test: Graph.o Algorithms.o Queue.o PriorityQueue.o UnionFind.o Test.o
+	$(CXX) $(CXXFLAGS) -o Test Graph.o Algorithms.o Queue.o PriorityQueue.o UnionFind.o Test.o
+
+test: Test
+	./Test
+
 valgrind: Main
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./Main
 
 clean:
-	rm -f Graph.o Algorithms.o Queue.o PriorityQueue.o UnionFind.o main.o Main
+	rm -f Graph.o Algorithms.o Queue.o PriorityQueue.o UnionFind.o main.o Test.o Main Test
 
-.PHONY: all clean
+.PHONY: all clean test

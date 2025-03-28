@@ -42,10 +42,11 @@ namespace graph {
 
         neighborVertic** getNeighborsList();
 
+        bool edgeCheck(int src, int dest) const;
+
+
         private:
         void addEdgeHelper(int src, int dest, int weight);
-
-        bool edgeCheck(int src, int dest) const;
 
         bool vertixCheck(int v);
 

@@ -245,6 +245,9 @@ namespace graph {
                 if (weight < 0) {
                     std::cout << "Dijkstra algorithem can't use negative weights" << std::endl;
                     graph::Graph g(0);
+                    delete[] dist;
+                    delete[] parent;
+                    delete[] visited;
                     return g;
                 }
     
