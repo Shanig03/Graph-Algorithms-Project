@@ -1,3 +1,7 @@
+/*
+Email: shanig7531@gmail.com
+*/
+
 #ifndef UNIONFIND_HPP
 #define UNIONFIND_HPP
 

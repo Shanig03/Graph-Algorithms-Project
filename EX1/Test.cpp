@@ -67,6 +67,41 @@ TEST_CASE("Graph Functionality") {
 // Tests for Algorithms Functions
 TEST_CASE("Algorithms funtionality"){
 
+    graph::Graph gr(6);
+    gr.addEdge(0, 1, 4);
+    gr.addEdge(0, 2, 3);
+    gr.addEdge(1, 2, 1);
+    gr.addEdge(1, 3, 2);
+    gr.addEdge(2, 3, 4);
+    gr.addEdge(3, 4, 2);
+    gr.addEdge(4, 5, 6);
+
+    graph::Graph bfsTree = graph::Algorithms::BFS(gr, 0);
+
+
+    graph::Graph dfsTree = graph::Algorithms::DFS(gr, 0);
+
+    graph::Graph dijTree = graph::Algorithms::dijkstra(gr, 0);
+
+    CHECK(dijTree.edgeCheck(0,1) == true);
+    CHECK(dijTree.edgeCheck(0,2) == true);
+    CHECK(dijTree.edgeCheck(1,3) == true);
+    CHECK(dijTree.edgeCheck(3,4) == true);
+    CHECK(dijTree.edgeCheck(4,5) == true);
+
+    CHECK(dijTree.edgeCheck(1,0) == false);
+    CHECK(dijTree.edgeCheck(2,0) == false);
+    CHECK(dijTree.edgeCheck(3,1) == false);
+    CHECK(dijTree.edgeCheck(4,3) == false);
+    CHECK(dijTree.edgeCheck(5,4) == false);
+
+    graph::Graph primGraph = graph::Algorithms::prim(gr);
+
+    graph::Graph kruskalGraph = graph::Algorithms::kruskal(gr);
+
+
+
+
 }
 
 // Tests for Queue Functions
@@ -127,9 +162,25 @@ TEST_CASE("UnionFind Functionality") {
     
     CHECK(uf.find(0) == 0);
     CHECK(uf.find(1) == 1);
-    
+    CHECK(uf.find(2) == 2);
+    CHECK(uf.find(3) == 3);
+    CHECK(uf.find(4) == 4);
+
+
     uf.unionSets(0, 1);
     CHECK(uf.find(0) == uf.find(1));
+
+    uf.unionSets(2,3);
+    CHECK(uf.find(2) == uf.find(3));
+
+    uf.unionSets(2,4);
+    CHECK(uf.find(2) == uf.find(4));
+    CHECK(uf.find(3) == uf.find(4));
+
+    uf.unionSets(2,0);
+    CHECK(uf.find(2) == uf.find(0));
+    CHECK(uf.find(3) == uf.find(1));
+
 }
 
 

@@ -1,3 +1,7 @@
+/*
+Email: shanig7531@gmail.com
+*/
+
 #include "UnionFind.hpp"
 
 UnionFind::UnionFind(int size) {
@@ -18,7 +22,7 @@ UnionFind::~UnionFind() {
 
 int UnionFind::find(int x) {
     if (parent[x] != x) {
-        parent[x] = find(parent[x]); // Path compression
+        parent[x] = find(parent[x]);
     }
     return parent[x];
 }
