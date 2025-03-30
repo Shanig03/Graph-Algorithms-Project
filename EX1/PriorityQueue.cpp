@@ -9,8 +9,8 @@ Email: shanig7531@gmail.com
 PriorityQueue::PriorityQueue(int cap) {
     capacity = cap;
     size = 0;
-    heap = new int[capacity];
-    distances = new int[capacity];
+    heap = new int[capacity];       // Stores vertex IDs
+    distances = new int[capacity];  // Stores distances corresponding to heap positions
 }
 
 PriorityQueue::~PriorityQueue() {
@@ -21,10 +21,11 @@ PriorityQueue::~PriorityQueue() {
 void PriorityQueue::heapifyUp(int index) {
     while (index > 0) {
         int parentIndex = (index - 1) / 2;
-        if (distances[heap[parentIndex]] <= distances[heap[index]]) {
+        if (distances[index] >= distances[parentIndex]) {
             break;
         }
         std::swap(heap[parentIndex], heap[index]);
+        std::swap(distances[parentIndex], distances[index]);
         index = parentIndex;
     }
 }
@@ -35,15 +36,16 @@ void PriorityQueue::heapifyDown(int index) {
         int rightChild = 2 * index + 2;
         int smallest = index;
 
-        if (leftChild < size && distances[heap[leftChild]] < distances[heap[smallest]]) {
+        if (leftChild < size && distances[leftChild] < distances[smallest]) {
             smallest = leftChild;
         }
-        if (rightChild < size && distances[heap[rightChild]] < distances[heap[smallest]]) {
+        if (rightChild < size && distances[rightChild] < distances[smallest]) {
             smallest = rightChild;
         }
 
         if (smallest != index) {
             std::swap(heap[smallest], heap[index]);
+            std::swap(distances[smallest], distances[index]);
             index = smallest;
         } else {
             break;
@@ -56,7 +58,7 @@ void PriorityQueue::enqueue(int vertex, int dist) {
         throw std::overflow_error("Priority Queue is full!");
     }
     heap[size] = vertex;
-    distances[vertex] = dist;
+    distances[size] = dist;
     heapifyUp(size);
     size++;
 }
@@ -67,6 +69,7 @@ int PriorityQueue::dequeue() {
     }
     int minVertex = heap[0];
     heap[0] = heap[size - 1];
+    distances[0] = distances[size - 1];
     size--;
     heapifyDown(0);
     return minVertex;
@@ -79,8 +82,13 @@ bool PriorityQueue::isEmpty() {
 void PriorityQueue::updateDistance(int vertex, int newDist) {
     for (int i = 0; i < size; i++) {
         if (heap[i] == vertex) {
-            distances[vertex] = newDist;
-            heapifyUp(i);
+            int oldDist = distances[i];
+            distances[i] = newDist;
+            if (newDist < oldDist) {
+                heapifyUp(i);
+            } else {
+                heapifyDown(i);
+            }
             break;
         }
     }
@@ -100,7 +108,8 @@ void PriorityQueue::display() {
     }
     std::cout << "Priority Queue elements: ";
     for (int i = 0; i < size; i++) {
-        std::cout << heap[i] << " ";
+        std::cout << heap[i] << "(" << distances[i] << ") ";
     }
     std::cout << std::endl;
 }
+

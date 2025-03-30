@@ -10,8 +10,8 @@ Email: shanig7531@gmail.com
 
 class PriorityQueue {
 private:
-    int* heap;         // Stores the vertex indices
-    int* distances;    // Stores the corresponding distances of each vertex
+    int* heap; // Stores the vertex indices
+    int* distances; // Stores the corresponding distances of each vertex
     int capacity;
     int size;
 
@@ -30,4 +30,4 @@ public:
     void display();
 };
 
-#endif // PRIORITYQUEUE_HPP
+#endif 

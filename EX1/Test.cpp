@@ -81,21 +81,47 @@ TEST_CASE("Queue funcionality"){
     CHECK(q.isFull() == true);
     CHECK(q.isEmpty() == false);
 
+    CHECK(q.peek() == 3);
 
+    CHECK(q.dequeue() == 3);
+    CHECK(q.dequeue() == 5);
+    CHECK(q.dequeue() == 10);
+    CHECK(q.dequeue() == 2);
+    CHECK(q.dequeue() == 8);
+
+    CHECK(q.isEmpty() == true);
 
 }
-// Tests for PraiorityQueue Functions
 
+
+// Tests for PraiorityQueue Functions
 TEST_CASE("PriorityQueue Functionality") {
     PriorityQueue pq(5);
+
+    pq.enqueue(8, 2);
     pq.enqueue(0, 10);
+    pq.enqueue(2, 4);
+    pq.enqueue(10, 3);
     pq.enqueue(1, 5);
+    CHECK(pq.isEmpty() == false);
+
+
+    // Checking if the vertecies with the smallest "distances" will dequeue
+    CHECK(pq.dequeue() == 8);
+    CHECK(pq.dequeue() == 10);
+    CHECK(pq.dequeue() == 2);
+
+    CHECK(pq.peek() == 1);
+
     CHECK(pq.dequeue() == 1);
     CHECK(pq.dequeue() == 0);
+
+    CHECK(pq.isEmpty() == true);
+
 }
 
-// Tests for UnionFind Functions
 
+// Tests for UnionFind Functions
 TEST_CASE("UnionFind Functionality") {
     UnionFind uf(5);
     
