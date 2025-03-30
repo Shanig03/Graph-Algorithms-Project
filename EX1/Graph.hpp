@@ -18,7 +18,6 @@ namespace graph {
         private: 
         int verticsCounter;
         neighborVertic** neighborsList;
-
         //count how many neighbors each vertics has. each index represent the vertic number, and the value inside is the num of neighbors for that vertic.
         int* neighborsCounter; 
         
@@ -44,12 +43,11 @@ namespace graph {
 
         bool edgeCheck(int src, int dest) const;
 
-
-        private:
-        void addEdgeHelper(int src, int dest, int weight);
-
         bool vertixCheck(int v);
 
+        private:
+
+        void addEdgeHelper(int src, int dest, int weight);
         
     };
 }

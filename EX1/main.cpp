@@ -9,169 +9,38 @@ Email: shanig7531@gmail.com
 #include "PriorityQueue.hpp"
 
 int main() {
-    /*
-    graph::Graph g(5);   
-    g.addEdge(0,3,2); 
-    g.addEdge(1,4,1); 
-    g.addEdge(4,2,3); 
 
-    g.print_graph();
-
-    g.removeEdge(1,4);
-
-    std::cout << "After Deleting the edge (1,4): " << "\n" << std::endl;
-    g.print_graph();
-
-    Queue q(5);
-    q.enqueue(0);
-    q.enqueue(1);
-    q.enqueue(2);
-    q.enqueue(3);
-    q.enqueue(4);
-
-    q.display();
-
-    q.dequeue();
-
-    q.display();
-
-    q.enqueue(10);
-
-    q.display();
-
-    std:: cout << q.peek() << std::endl;
-
-
-
-
-    
-    //graph::Graph tree = graph::Algorithms::BFS(g, 0);
-
-
-    graph::Graph tree = graph::Algorithms::DFS(g, 4);
-
-    tree.print_graph();
-
-
-     // Create a PriorityQueue with capacity of 10 elements
-    PriorityQueue pq(10);
-
-    // Test enqueueing elements
-    std::cout << "Enqueueing elements 5, 3, 8, 1, 6:" << std::endl;
-    pq.enqueue(5);
-    pq.enqueue(3);
-    pq.enqueue(8);
-    pq.enqueue(1);
-    pq.enqueue(6);
-    pq.display();  // Should display the priority queue after enqueueing
-
-    // Test peeking (should return the smallest element, which is 1)
-    std::cout << "Peek: " << pq.peek() << std::endl;
-
-    // Test dequeueing (should return and remove the smallest element, which is 1)
-    std::cout << "Dequeue: " << pq.dequeue() << std::endl;
-    pq.display();  // Display the priority queue after dequeueing
-
-    // Test dequeueing again (should return and remove the next smallest element, which is 3)
-    std::cout << "Dequeue: " << pq.dequeue() << std::endl;
-    pq.display();  // Display the priority queue after dequeueing
-
-    // Test enqueueing again to check dynamic behavior
-    std::cout << "Enqueueing elements 2, 4, 7:" << std::endl;
-    pq.enqueue(2);
-    pq.enqueue(4);
-    pq.enqueue(7);
-    pq.display();  // Display the priority queue after enqueueing
-
-    // Test dequeueing until the queue is empty
-    std::cout << "Dequeue: " << pq.dequeue() << std::endl;
-    std::cout << "Dequeue: " << pq.dequeue() << std::endl;
-    std::cout << "Dequeue: " << pq.dequeue() << std::endl;
-    std::cout << "Dequeue: " << pq.dequeue() << std::endl;
-    pq.display();  // Should show empty queue
-    */
-
-    /*
-    graph::Graph g(5);   
-    g.addEdge(0,3,2); 
-    g.addEdge(1,4,1); 
-    g.addEdge(4,2,3); 
-    g.addEdge(0,1,3);
-    g.addEdge(3,2,4);
-    g.addEdge(4,3,1);
-
-
-    std::cout << "DFS" << std::endl;
-    graph::Graph gr = graph::Algorithms::DFS(g, 0);
-    gr.print_graph();
-
-
-    std::cout << "BFS" << std::endl;
-    graph::Graph gr2 = graph::Algorithms::BFS(g, 0);
-    gr2.print_graph();
-
-    std::cout << "dijkstra" << std::endl;
-    graph::Graph gr3 = graph::Algorithms::dijkstra(g, 0);
-    gr3.print_graph();
-
-    graph::Graph pg(6);   
-    pg.addEdge(0, 1, 4); 
-    pg.addEdge(0, 2, 3); 
-    pg.addEdge(1, 2, 1); 
-    pg.addEdge(1, 3, 2); 
-    pg.addEdge(2, 3, 4); 
-    pg.addEdge(3, 4, 6); 
-    pg.addEdge(4, 5, 5); 
-    pg.addEdge(2, 5, 7);
-
-
-    std::cout << "prim" << std::endl;
-    graph::Graph gr4 = graph::Algorithms::prim(pg);
-    gr4.print_graph();
-
-
-
-    return 0;
-
-    */
-
-    graph::Graph g(5);
-    g.addEdge(0, 1, 2);
-    g.addEdge(0, 2, 4);
+    graph::Graph g(6);
+    g.addEdge(0, 1, 4);
+    g.addEdge(0, 2, 3);
     g.addEdge(1, 2, 1);
-    g.addEdge(1, 3, 7);
-    g.addEdge(2, 4, 3);
-    g.addEdge(3, 4, 1);
+    g.addEdge(1, 3, 2);
+    g.addEdge(2, 3, 4);
+    g.addEdge(3, 4, 2);
+    g.addEdge(4, 5, 6);
 
-    graph::Graph g62(5);
-    g62.addEdge(0, 1, -2);
-    g62.addEdge(0, 2, 4);
-    g62.addEdge(1, 2, -1);
-    g62.addEdge(1, 3, 7);
-    g62.addEdge(2, 4, 3);
-    g62.addEdge(3, 4, 1);
 
     std::cout << "Original Graph:" << std::endl;
-    g62.print_graph();
+    g.print_graph();
 
-    std::cout << "\n--- BFS (from 0) ---\n";
-    graph::Graph bfsTree = graph::Algorithms::BFS(g62, 0);
+    std::cout << "\n BFS (from vertic 0) : \n";
+    graph::Graph bfsTree = graph::Algorithms::BFS(g, 0);
     bfsTree.print_graph();
 
-    std::cout << "\n--- DFS (from 0) ---\n";
-    graph::Graph dfsTree = graph::Algorithms::DFS(g62, 0);
+    std::cout << "\n DFS (from vertic 0) : \n";
+    graph::Graph dfsTree = graph::Algorithms::DFS(g, 0);
     dfsTree.print_graph();
 
-    std::cout << "\n--- Dijkstra (from 0) ---\n";
-    graph::Graph dijkstraTree = graph::Algorithms::dijkstra(g62, 0);
+    std::cout << "\n Dijkstra (from vertic 0) : \n";
+    graph::Graph dijkstraTree = graph::Algorithms::dijkstra(g, 0);
     dijkstraTree.print_graph();
 
-    std::cout << "\n--- Prim ---\n";
-    graph::Graph primTree = graph::Algorithms::prim(g62);
+    std::cout << "\n Prim : \n";
+    graph::Graph primTree = graph::Algorithms::prim(g);
     primTree.print_graph();
 
-    std::cout << "\n--- Kruskal ---\n";
-    graph::Graph kruskalTree = graph::Algorithms::kruskal(g62);
+    std::cout << "\n Kruskal : \n";
+    graph::Graph kruskalTree = graph::Algorithms::kruskal(g);
     kruskalTree.print_graph();
 
 
