@@ -69,9 +69,7 @@ TEST_CASE("Graph Functionality") {
 
 }
 
-// Tests for Algorithms Functions
-TEST_CASE("Algorithms funtionality"){
-
+TEST_CASE("BFS funtionality"){
     graph::Graph gr(6);
     gr.addEdge(0, 1, 4);
     gr.addEdge(0, 2, 3);
@@ -80,6 +78,8 @@ TEST_CASE("Algorithms funtionality"){
     gr.addEdge(2, 3, 4);
     gr.addEdge(3, 4, 2);
     gr.addEdge(4, 5, 6);
+    
+    CHECK(gr.getVerticsCounter() == 6);
 
     graph::Graph bfsTree = graph::Algorithms::BFS(gr, 0);
 
@@ -95,6 +95,18 @@ TEST_CASE("Algorithms funtionality"){
     CHECK(bfsTree.edgeCheck(2,4) == false);
     CHECK(bfsTree.edgeCheck(5,2) == false);
 
+    CHECK(bfsTree.getVerticsCounter() == 6);
+}
+
+TEST_CASE("DFS funtionality"){
+    graph::Graph gr(6);
+    gr.addEdge(0, 1, 4);
+    gr.addEdge(0, 2, 3);
+    gr.addEdge(1, 2, 1);
+    gr.addEdge(1, 3, 2);
+    gr.addEdge(2, 3, 4);
+    gr.addEdge(3, 4, 2);
+    gr.addEdge(4, 5, 6);
 
     graph::Graph dfsTree = graph::Algorithms::DFS(gr, 0);
 
@@ -110,6 +122,20 @@ TEST_CASE("Algorithms funtionality"){
     CHECK(dfsTree.edgeCheck(2,4) == false);
     CHECK(dfsTree.edgeCheck(5,2) == false);
 
+    CHECK(dfsTree.getVerticsCounter() == 6);
+
+
+}
+
+TEST_CASE("Dijkstra funtionality"){
+    graph::Graph gr(6);
+    gr.addEdge(0, 1, 4);
+    gr.addEdge(0, 2, 3);
+    gr.addEdge(1, 2, 1);
+    gr.addEdge(1, 3, 2);
+    gr.addEdge(2, 3, 4);
+    gr.addEdge(3, 4, 2);
+    gr.addEdge(4, 5, 6);
 
     graph::Graph dijTree = graph::Algorithms::dijkstra(gr, 0);
 
@@ -125,7 +151,20 @@ TEST_CASE("Algorithms funtionality"){
     CHECK(dijTree.edgeCheck(4,3) == false);
     CHECK(dijTree.edgeCheck(5,4) == false);
 
-    
+    CHECK(dijTree.getVerticsCounter() == 6);
+}
+
+TEST_CASE("Prim funtionality"){
+
+    graph::Graph gr(6);
+    gr.addEdge(0, 1, 4);
+    gr.addEdge(0, 2, 3);
+    gr.addEdge(1, 2, 1);
+    gr.addEdge(1, 3, 2);
+    gr.addEdge(2, 3, 4);
+    gr.addEdge(3, 4, 2);
+    gr.addEdge(4, 5, 6);
+
     graph::Graph primGraph = graph::Algorithms::prim(gr);
 
     CHECK(primGraph.edgeCheck(0,2) == true);
@@ -137,18 +176,35 @@ TEST_CASE("Algorithms funtionality"){
     CHECK(primGraph.edgeCheck(1,0) == false);
     CHECK(primGraph.edgeCheck(2,3) == false);
 
+    CHECK(primGraph.getVerticsCounter() == 6);
+
+
+}
+
+// Tests for Algorithms Functions
+TEST_CASE("Kruskal funtionality"){
+
+    graph::Graph gr(6);
+    gr.addEdge(0, 1, 4);
+    gr.addEdge(0, 2, 3);
+    gr.addEdge(1, 2, 1);
+    gr.addEdge(1, 3, 2);
+    gr.addEdge(2, 3, 4);
+    gr.addEdge(3, 4, 2);
+    gr.addEdge(4, 5, 6);
+
 
     graph::Graph kruskalGraph = graph::Algorithms::kruskal(gr);
-    CHECK(primGraph.edgeCheck(0,2) == true);
-    CHECK(primGraph.edgeCheck(2,1) == true);
-    CHECK(primGraph.edgeCheck(1,3) == true);
-    CHECK(primGraph.edgeCheck(3,4) == true);
-    CHECK(primGraph.edgeCheck(4,5) == true);
+    CHECK(kruskalGraph.edgeCheck(0,2) == true);
+    CHECK(kruskalGraph.edgeCheck(2,1) == true);
+    CHECK(kruskalGraph.edgeCheck(1,3) == true);
+    CHECK(kruskalGraph.edgeCheck(3,4) == true);
+    CHECK(kruskalGraph.edgeCheck(4,5) == true);
 
-    CHECK(primGraph.edgeCheck(1,0) == false);
-    CHECK(primGraph.edgeCheck(2,3) == false);
+    CHECK(kruskalGraph.edgeCheck(1,0) == false);
+    CHECK(kruskalGraph.edgeCheck(2,3) == false);
 
-
+    CHECK(kruskalGraph.getVerticsCounter() == 6);
 
 
 }

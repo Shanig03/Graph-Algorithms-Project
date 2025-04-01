@@ -26,7 +26,6 @@ UnionFind.o: UnionFind.cpp UnionFind.hpp
 main.o: main.cpp Algorithms.hpp Graph.hpp PriorityQueue.hpp Queue.hpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
-	# Add test rule
 Test.o: Test.cpp doctest.h Graph.hpp Algorithms.hpp Queue.hpp PriorityQueue.hpp
 	$(CXX) $(CXXFLAGS) -c Test.cpp
 
