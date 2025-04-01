@@ -45,6 +45,8 @@ namespace graph {
 
         bool vertixCheck(int v);
 
+        int getNumOfEdges();
+
         private:
 
         void addEdgeHelper(int src, int dest, int weight);

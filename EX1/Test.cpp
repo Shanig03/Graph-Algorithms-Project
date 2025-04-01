@@ -10,8 +10,8 @@ Email: shanig7531@gmail.com
 #include "PriorityQueue.hpp"
 #include "UnionFind.hpp"
 
-// Tests for Graph Functions
 
+// Tests for Graph Functions
 TEST_CASE("Graph Functionality") {
     graph::Graph g(5);
     g.addEdge(0, 1, 10);
@@ -69,6 +69,7 @@ TEST_CASE("Graph Functionality") {
 
 }
 
+// Tests for BFS algorithms
 TEST_CASE("BFS funtionality"){
     graph::Graph gr(6);
     gr.addEdge(0, 1, 4);
@@ -98,6 +99,8 @@ TEST_CASE("BFS funtionality"){
     CHECK(bfsTree.getVerticsCounter() == 6);
 }
 
+
+// Tests for DFS algorithms
 TEST_CASE("DFS funtionality"){
     graph::Graph gr(6);
     gr.addEdge(0, 1, 4);
@@ -109,6 +112,9 @@ TEST_CASE("DFS funtionality"){
     gr.addEdge(4, 5, 6);
 
     graph::Graph dfsTree = graph::Algorithms::DFS(gr, 0);
+
+    //graph::Graph dfsTree2 = graph::Algorithms::DFS(gr, -1);
+
 
     CHECK(dfsTree.edgeCheck(0,1) == true);
     CHECK(dfsTree.edgeCheck(1,2) == true);
@@ -127,6 +133,7 @@ TEST_CASE("DFS funtionality"){
 
 }
 
+// Tests for Dijkstra algorithms
 TEST_CASE("Dijkstra funtionality"){
     graph::Graph gr(6);
     gr.addEdge(0, 1, 4);
@@ -154,6 +161,7 @@ TEST_CASE("Dijkstra funtionality"){
     CHECK(dijTree.getVerticsCounter() == 6);
 }
 
+// Tests for Prim algorithms
 TEST_CASE("Prim funtionality"){
 
     graph::Graph gr(6);
@@ -178,10 +186,11 @@ TEST_CASE("Prim funtionality"){
 
     CHECK(primGraph.getVerticsCounter() == 6);
 
-
+    // For a MST the number of edges should be |E|-1
+    CHECK(primGraph.getNumOfEdges() == 5);
 }
 
-// Tests for Algorithms Functions
+// Tests for Kruskal algorithms
 TEST_CASE("Kruskal funtionality"){
 
     graph::Graph gr(6);
@@ -206,7 +215,8 @@ TEST_CASE("Kruskal funtionality"){
 
     CHECK(kruskalGraph.getVerticsCounter() == 6);
 
-
+    // For a MST the number of edges should be |E|-1
+    CHECK(kruskalGraph.getNumOfEdges() == 5);
 }
 
 // Tests for Queue Functions

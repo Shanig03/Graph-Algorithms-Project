@@ -202,6 +202,14 @@ namespace graph {
         }
         return false;
     }
+
+    int Graph::getNumOfEdges() {
+        int sum = 0;
+        for (int i = 0; i < verticsCounter; ++i) {
+            sum += neighborsCounter[i]; 
+        }
+        return sum / 2; // Since it's an undirected graph, each edge is counted twice
+    }    
     
     
     

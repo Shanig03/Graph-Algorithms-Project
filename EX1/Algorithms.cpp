@@ -49,6 +49,11 @@ namespace graph {
 
     // Creating a directed BFS tree
     Graph Algorithms::BFS(Graph& graph, int startVertex) {
+        if (startVertex < 0){
+            std::cout << "Starting vertex is not valid" << std::endl;
+            Graph g(0);
+            return g;
+        }
         int numVertices = graph.getVerticsCounter();
         Graph bfsTree(numVertices);  
         bool* visited = new bool[numVertices]();  // Initialize all to false
@@ -118,6 +123,11 @@ namespace graph {
 
     // Creating a directed DFS tree
     Graph Algorithms::DFS(Graph& graph, int startVertex) {
+        if (startVertex < 0){
+            std::cout << "Starting vertex is not valid" << std::endl;
+            Graph g(0);
+            return g;
+        }
         int numVertices = graph.getVerticsCounter();
         Graph dfsTree(numVertices);  // The tree graph to return
         bool* visited = new bool[numVertices]();  // Initialize all to false
@@ -215,6 +225,11 @@ namespace graph {
 
     // Creating a directed SP tree
     Graph Algorithms::dijkstra(Graph& g, int src) {
+        if (src < 0){
+            std::cout << "Starting vertex is not valid" << std::endl;
+            Graph g(0);
+            return g;
+        }
         int V = g.getVerticsCounter();
         int* dist = new int[V];     // Distance array
         int* parent = new int[V];   // To store shortest path tree

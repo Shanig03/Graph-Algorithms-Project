@@ -54,15 +54,15 @@ int main() {
 
     std::cout << "\n BFS (from vertic 0) : \n";
 
-    graph::Graph bfsTree = graph::Algorithms::BFS(d, 0);
+    graph::Graph bfsTree = graph::Algorithms::BFS(d,-10);
     bfsTree.print_graph();
 
     std::cout << "\n DFS (from vertic 0) : \n";
-    graph::Graph dfsTree = graph::Algorithms::DFS(d, 0);
+    graph::Graph dfsTree = graph::Algorithms::DFS(d, -1);
     dfsTree.print_graph();
 
     std::cout << "\n Dijkstra (from vertic 0) : \n";
-    graph::Graph dijkstraTree = graph::Algorithms::dijkstra(g, 0);
+    graph::Graph dijkstraTree = graph::Algorithms::dijkstra(g, -7);
     dijkstraTree.print_graph();
 
     std::cout << "\n Prim : \n";
