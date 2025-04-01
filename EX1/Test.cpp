@@ -62,6 +62,11 @@ TEST_CASE("Graph Functionality") {
     CHECK(g3.edgeCheck(3,2) == false);
     CHECK(g3.getVerticsCounter() == 7);
 
+    // Checking thr case for a graph eith negative number of vertecies
+    CHECK_THROWS_AS(graph:: Graph g2(-2), std::invalid_argument);
+
+
+
 }
 
 // Tests for Algorithms Functions
@@ -78,8 +83,33 @@ TEST_CASE("Algorithms funtionality"){
 
     graph::Graph bfsTree = graph::Algorithms::BFS(gr, 0);
 
+    CHECK(bfsTree.edgeCheck(0,1) == true);
+    CHECK(bfsTree.edgeCheck(0,2) == true);
+    CHECK(bfsTree.edgeCheck(1,3) == true);
+    CHECK(bfsTree.edgeCheck(3,4) == true);
+    CHECK(bfsTree.edgeCheck(4,5) == true);
+
+    CHECK(bfsTree.edgeCheck(5,0) == false);
+    CHECK(bfsTree.edgeCheck(2,1) == false);
+    CHECK(bfsTree.edgeCheck(3,2) == false);
+    CHECK(bfsTree.edgeCheck(2,4) == false);
+    CHECK(bfsTree.edgeCheck(5,2) == false);
+
 
     graph::Graph dfsTree = graph::Algorithms::DFS(gr, 0);
+
+    CHECK(dfsTree.edgeCheck(0,1) == true);
+    CHECK(dfsTree.edgeCheck(1,2) == true);
+    CHECK(dfsTree.edgeCheck(2,3) == true);
+    CHECK(dfsTree.edgeCheck(3,4) == true);
+    CHECK(dfsTree.edgeCheck(4,5) == true);
+
+    CHECK(dfsTree.edgeCheck(5,0) == false);
+    CHECK(dfsTree.edgeCheck(2,1) == false);
+    CHECK(dfsTree.edgeCheck(3,2) == false);
+    CHECK(dfsTree.edgeCheck(2,4) == false);
+    CHECK(dfsTree.edgeCheck(5,2) == false);
+
 
     graph::Graph dijTree = graph::Algorithms::dijkstra(gr, 0);
 
@@ -95,9 +125,28 @@ TEST_CASE("Algorithms funtionality"){
     CHECK(dijTree.edgeCheck(4,3) == false);
     CHECK(dijTree.edgeCheck(5,4) == false);
 
+    
     graph::Graph primGraph = graph::Algorithms::prim(gr);
 
+    CHECK(primGraph.edgeCheck(0,2) == true);
+    CHECK(primGraph.edgeCheck(2,1) == true);
+    CHECK(primGraph.edgeCheck(1,3) == true);
+    CHECK(primGraph.edgeCheck(3,4) == true);
+    CHECK(primGraph.edgeCheck(4,5) == true);
+
+    CHECK(primGraph.edgeCheck(1,0) == false);
+    CHECK(primGraph.edgeCheck(2,3) == false);
+
+
     graph::Graph kruskalGraph = graph::Algorithms::kruskal(gr);
+    CHECK(primGraph.edgeCheck(0,2) == true);
+    CHECK(primGraph.edgeCheck(2,1) == true);
+    CHECK(primGraph.edgeCheck(1,3) == true);
+    CHECK(primGraph.edgeCheck(3,4) == true);
+    CHECK(primGraph.edgeCheck(4,5) == true);
+
+    CHECK(primGraph.edgeCheck(1,0) == false);
+    CHECK(primGraph.edgeCheck(2,3) == false);
 
 
 

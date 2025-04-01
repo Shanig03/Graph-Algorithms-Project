@@ -10,6 +10,9 @@ Email: shanig7531@gmail.com
 namespace graph {
 
     Graph::Graph(int numOfVertics) {
+        if (numOfVertics < 0) {
+            throw std::invalid_argument("Number of vertices must be greater than 0.");
+        }
         this->verticsCounter = numOfVertics;
         neighborsList = new neighborVertic*[numOfVertics];
         neighborsCounter = new int[numOfVertics];
