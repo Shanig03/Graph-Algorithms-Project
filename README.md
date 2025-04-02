@@ -39,7 +39,7 @@ The `Algorithms` class provides various graph algorithms:
 
 ### 2. **Depth-First Search (DFS)**
 
-- Constructs a directed DFS tree.
+- Constructs a directed DFS tree or forest.
 - Uses recursion to explore all reachable vertices.
 
 ### 3. **Dijkstra’s Algorithm**
