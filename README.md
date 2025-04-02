@@ -100,5 +100,5 @@ make clean
 ```
 ## Summary
 
-This project demonstrates a dynamic memory-based approach to implementing graphs and graph algorithms in C++. It avoids STL containers in favor of arrays. It also include graphs and algorithms demonstratin and testing.
+This project demonstrates a dynamic memory-based approach to implementing graphs and graph algorithms in C++. It avoids STL containers in favor of arrays. It also include graphs and algorithms demonstration and testing.
 
