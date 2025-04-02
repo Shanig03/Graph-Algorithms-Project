@@ -66,7 +66,7 @@ The tests implementatin is in the `Test.cpp` file.
 
 ## Makefile Usage
 
-The project includes a `Makefile` with the following commands:
+The project includes a `Makefile` that runs the project using the clang++ compiler with the following commands:
 
 - `make Main` - Compiles the main program.
 - `make test` - Compiles and runs the test suite using Doctest.
