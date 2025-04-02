@@ -13,6 +13,7 @@ Email: shanig7531@gmail.com
 
 // Tests for Graph Functions
 TEST_CASE("Graph Functionality") {
+    
     graph::Graph g(5);
     g.addEdge(0, 1, 10);
     g.addEdge(1, 2, 20);
@@ -62,14 +63,12 @@ TEST_CASE("Graph Functionality") {
     CHECK(g3.edgeCheck(3,2) == false);
     CHECK(g3.getVerticsCounter() == 7);
 
-    // Checking thr case for a graph eith negative number of vertecies
+    // Checking the case for a graph with negative number of vertecies
     CHECK_THROWS_AS(graph:: Graph g2(-2), std::invalid_argument);
-
-
 
 }
 
-// Tests for BFS algorithms
+// Tests for BFS algorithm
 TEST_CASE("BFS funtionality"){
     graph::Graph gr(6);
     gr.addEdge(0, 1, 4);
@@ -84,6 +83,7 @@ TEST_CASE("BFS funtionality"){
 
     graph::Graph bfsTree = graph::Algorithms::BFS(gr, 0);
 
+    // Checking if all the tree edge is in the bfsTree
     CHECK(bfsTree.edgeCheck(0,1) == true);
     CHECK(bfsTree.edgeCheck(0,2) == true);
     CHECK(bfsTree.edgeCheck(1,3) == true);
@@ -96,11 +96,16 @@ TEST_CASE("BFS funtionality"){
     CHECK(bfsTree.edgeCheck(2,4) == false);
     CHECK(bfsTree.edgeCheck(5,2) == false);
 
+    // Checking if the number of vertecis is the same after the algorithm
     CHECK(bfsTree.getVerticsCounter() == 6);
+
+    graph::Graph bfsTree2 = graph::Algorithms::DFS(gr, -1);
+
+    CHECK(bfsTree2.getVerticsCounter() == 0);
 }
 
 
-// Tests for DFS algorithms
+// Tests for DFS algorithm
 TEST_CASE("DFS funtionality"){
     graph::Graph gr(6);
     gr.addEdge(0, 1, 4);
@@ -113,9 +118,7 @@ TEST_CASE("DFS funtionality"){
 
     graph::Graph dfsTree = graph::Algorithms::DFS(gr, 0);
 
-    //graph::Graph dfsTree2 = graph::Algorithms::DFS(gr, -1);
-
-
+    // Checking if all the tree edge is in the dfsTree
     CHECK(dfsTree.edgeCheck(0,1) == true);
     CHECK(dfsTree.edgeCheck(1,2) == true);
     CHECK(dfsTree.edgeCheck(2,3) == true);
@@ -128,13 +131,20 @@ TEST_CASE("DFS funtionality"){
     CHECK(dfsTree.edgeCheck(2,4) == false);
     CHECK(dfsTree.edgeCheck(5,2) == false);
 
+    // Checking if the number of vertecis is the same after the algorithm
     CHECK(dfsTree.getVerticsCounter() == 6);
+
+    graph::Graph dfsTree2 = graph::Algorithms::DFS(gr, -1);
+
+    CHECK(dfsTree2.getVerticsCounter() == 0);
+
 
 
 }
 
-// Tests for Dijkstra algorithms
+// Tests for Dijkstra algorithm
 TEST_CASE("Dijkstra funtionality"){
+
     graph::Graph gr(6);
     gr.addEdge(0, 1, 4);
     gr.addEdge(0, 2, 3);
@@ -146,6 +156,7 @@ TEST_CASE("Dijkstra funtionality"){
 
     graph::Graph dijTree = graph::Algorithms::dijkstra(gr, 0);
 
+    // Checking if all the tree edge is in the dijTree
     CHECK(dijTree.edgeCheck(0,1) == true);
     CHECK(dijTree.edgeCheck(0,2) == true);
     CHECK(dijTree.edgeCheck(1,3) == true);
@@ -158,10 +169,24 @@ TEST_CASE("Dijkstra funtionality"){
     CHECK(dijTree.edgeCheck(4,3) == false);
     CHECK(dijTree.edgeCheck(5,4) == false);
 
+    // Checking if the number of vertecis is the same after the algorithm
     CHECK(dijTree.getVerticsCounter() == 6);
+
+    // Graph with negative weights
+    graph::Graph negativeGraph(5);
+    negativeGraph.addEdge(0, 1, -4);
+    negativeGraph.addEdge(0, 2, 3);
+    negativeGraph.addEdge(0, 3, 4);
+    negativeGraph.addEdge(1, 4, -7);
+
+    graph::Graph dijTree2 = graph::Algorithms::dijkstra(negativeGraph, 0);
+
+    // Checking if the number of the vertecis in the returned graph is 0 for a graph with negative weights
+    CHECK(dijTree2.getVerticsCounter() == 0);
+
 }
 
-// Tests for Prim algorithms
+// Tests for Prim algorithm
 TEST_CASE("Prim funtionality"){
 
     graph::Graph gr(6);
@@ -175,6 +200,7 @@ TEST_CASE("Prim funtionality"){
 
     graph::Graph primGraph = graph::Algorithms::prim(gr);
 
+    // Checking if all the tree edge is in the primGraph
     CHECK(primGraph.edgeCheck(0,2) == true);
     CHECK(primGraph.edgeCheck(2,1) == true);
     CHECK(primGraph.edgeCheck(1,3) == true);
@@ -184,13 +210,14 @@ TEST_CASE("Prim funtionality"){
     CHECK(primGraph.edgeCheck(1,0) == false);
     CHECK(primGraph.edgeCheck(2,3) == false);
 
+    // Checking if the number of vertecis is the same after the algorithm
     CHECK(primGraph.getVerticsCounter() == 6);
 
     // For a MST the number of edges should be |E|-1
     CHECK(primGraph.getNumOfEdges() == 5);
 }
 
-// Tests for Kruskal algorithms
+// Tests for Kruskal algorithm
 TEST_CASE("Kruskal funtionality"){
 
     graph::Graph gr(6);
@@ -204,6 +231,8 @@ TEST_CASE("Kruskal funtionality"){
 
 
     graph::Graph kruskalGraph = graph::Algorithms::kruskal(gr);
+
+    // Checking if all the tree edge is in the kruskalGraph
     CHECK(kruskalGraph.edgeCheck(0,2) == true);
     CHECK(kruskalGraph.edgeCheck(2,1) == true);
     CHECK(kruskalGraph.edgeCheck(1,3) == true);
@@ -213,6 +242,7 @@ TEST_CASE("Kruskal funtionality"){
     CHECK(kruskalGraph.edgeCheck(1,0) == false);
     CHECK(kruskalGraph.edgeCheck(2,3) == false);
 
+    // Checking if the number of vertecis is the same after the algorithm
     CHECK(kruskalGraph.getVerticsCounter() == 6);
 
     // For a MST the number of edges should be |E|-1
@@ -221,13 +251,17 @@ TEST_CASE("Kruskal funtionality"){
 
 // Tests for Queue Functions
 TEST_CASE("Queue funcionality"){
+
     Queue q(5);
+
     CHECK(q.isEmpty() == true);
+
     q.enqueue(3);
     q.enqueue(5);
     q.enqueue(10);
     q.enqueue(2);
     q.enqueue(8);
+
     CHECK(q.isFull() == true);
     CHECK(q.isEmpty() == false);
 
@@ -246,6 +280,7 @@ TEST_CASE("Queue funcionality"){
 
 // Tests for PraiorityQueue Functions
 TEST_CASE("PriorityQueue Functionality") {
+
     PriorityQueue pq(5);
 
     pq.enqueue(8, 2);
@@ -253,8 +288,8 @@ TEST_CASE("PriorityQueue Functionality") {
     pq.enqueue(2, 4);
     pq.enqueue(10, 3);
     pq.enqueue(1, 5);
-    CHECK(pq.isEmpty() == false);
 
+    CHECK(pq.isEmpty() == false);
 
     // Checking if the vertecies with the smallest "distances" will dequeue
     CHECK(pq.dequeue() == 8);
@@ -273,6 +308,7 @@ TEST_CASE("PriorityQueue Functionality") {
 
 // Tests for UnionFind Functions
 TEST_CASE("UnionFind Functionality") {
+
     UnionFind uf(5);
     
     CHECK(uf.find(0) == 0);

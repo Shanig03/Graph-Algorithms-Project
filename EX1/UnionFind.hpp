@@ -21,7 +21,7 @@ class UnionFind {
 
     int find(int x); // Find function with path compression to find the representative of a set
     
-    void unionSets(int x, int y); // Union function with rank-based merging to combine two sets
+    void unionSets(int a, int b); // Union function with rank-based merging to combine two sets
 
 
 };

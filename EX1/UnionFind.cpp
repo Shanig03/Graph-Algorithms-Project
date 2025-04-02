@@ -33,20 +33,20 @@ int UnionFind::find(int x) {
 
 
 // Union function- Merges two sets containing x and y using union by rank
-void UnionFind::unionSets(int x, int y) {
-    int rootX = find(x);
-    int rootY = find(y);
+void UnionFind::unionSets(int a, int b) {
+    int rootA = find(a);
+    int rootB = find(b);
 
     // Union by rank- attach the smaller tree under the larger tree
-    if (rootX != rootY) {
+    if (rootA != rootB) {
         // Union by rank
-        if (rank[rootX] > rank[rootY]) {
-            parent[rootY] = rootX; // Make rootX the parent of rootY
-        } else if (rank[rootX] < rank[rootY]) {
-            parent[rootX] = rootY; // Make rootY the parent of rootX
+        if (rank[rootA] > rank[rootB]) {
+            parent[rootB] = rootA; // Make rootX the parent of rootY
+        } else if (rank[rootA] < rank[rootB]) {
+            parent[rootA] = rootB; // Make rootY the parent of rootX
         } else {
-            parent[rootY] = rootX; // Merge and increment rank if equal
-            rank[rootX]++;
+            parent[rootB] = rootA; // Merge and increment rank if equal
+            rank[rootA]++;
         }
     }
 }

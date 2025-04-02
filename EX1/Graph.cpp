@@ -11,14 +11,6 @@ namespace graph {
 
     // Constractor for the Graph class
     Graph::Graph(int numOfVertics) {
-        // If the number of vertices is 0, create an empty graph
-        if (numOfVertics == 0) {
-        this->verticsCounter = 0;
-        this->neighborsList = nullptr;
-        this->neighborsCounter = nullptr;
-        return;
-        }
-
         // Check if the input number is valid (not negative)
         if (numOfVertics < 0) {
             throw std::invalid_argument("Number of vertices must be greater than 0.");
