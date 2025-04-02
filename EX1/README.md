@@ -1,6 +1,8 @@
 # Graph Algorithms Project
 
 ## Overview
+Email: shanig7531@gmail.com
+
 
 This project implements a graph data structure using adjacency lists, along with various graph algorithms. The implementation is based on arrays instead of standard library containers like `vector` or `list`. The key algorithms included are:
 

@@ -9,7 +9,17 @@ Email: shanig7531@gmail.com
 
 namespace graph {
 
+    // Constractor for the Graph class
     Graph::Graph(int numOfVertics) {
+        // If the number of vertices is 0, create an empty graph
+        if (numOfVertics == 0) {
+        this->verticsCounter = 0;
+        this->neighborsList = nullptr;
+        this->neighborsCounter = nullptr;
+        return;
+        }
+
+        // Check if the input number is valid (not negative)
         if (numOfVertics < 0) {
             throw std::invalid_argument("Number of vertices must be greater than 0.");
         }
@@ -23,7 +33,7 @@ namespace graph {
     }
 
 
-    // check this
+    // Copy constractor
     Graph::Graph(const Graph& other) {
         verticsCounter = other.verticsCounter;
         neighborsList = new neighborVertic*[verticsCounter];
@@ -43,7 +53,7 @@ namespace graph {
     }
 
     
-
+    // Distractor for the Graph class
     Graph::~Graph() {
         // Free each dynamically allocated adjacency list
         for (int i = 0; i < verticsCounter; ++i) {
@@ -58,13 +68,15 @@ namespace graph {
     }
     
 
+    // Function to add a weighted edge to the graph
     void Graph::addEdge(int src, int dest, int weight) {
+        // Check if the src or the dest vertecis does not exict in the graph
         if (!vertixCheck(src) || !vertixCheck(dest)) {
             std::cout << "One of the vertices does not exist in this graph" << std::endl;
             return;
         }
     
-        // Ensure edge does not exist before adding (only check src → dest)
+        // Ensure edge does not exist before adding (only check src to dest)
         if (edgeCheck(src, dest)) {
             std::cout << "This edge is already exist" << std::endl;
             return;
@@ -77,14 +89,15 @@ namespace graph {
     
     
     
-    
-
+    // Function for adding directed edge
     void Graph::addDirectedEdge(int src, int dest, int weight) {
         // Checking if the edge already exist
         if(edgeCheck(src, dest)){
             std:: cout << "This edge is already exist" << std::endl;
             return;
         }
+
+        // Check if the src or the dest vertecis does not exict in the graph
         if (!vertixCheck(src) || !vertixCheck(dest)) {
             std:: cout << "One of the vertecies does not exict in this graph" << std::endl;
             return;
@@ -93,7 +106,10 @@ namespace graph {
         addEdgeHelper(src, dest, weight);
     }
 
+
+    // Function for removing an edge
     void Graph::removeEdge(int src, int dest) {
+        // Checking if the edge already exist
         if (!edgeCheck(src, dest)) {
             std::cout << "Edge (" << src << ", " << dest << ") does not exist.\n";
             return;
@@ -110,7 +126,7 @@ namespace graph {
             }
         }
     
-        // Remove src from dest adjacency list (undirected graph)
+        // Remove src from dest adjacency list
         for (int i = 0; i < neighborsCounter[dest]; ++i) {
             if (neighborsList[dest][i].id == src) {
                 for (int j = i; j < neighborsCounter[dest] - 1; ++j) {
@@ -144,6 +160,7 @@ namespace graph {
     }
     
 
+    // Helper function to add an edge
     void Graph::addEdgeHelper(int src, int dest, int weight) {
         // Create a new list with size increased by 1
         neighborVertic* copiedList = new neighborVertic[neighborsCounter[src] + 1];
@@ -177,20 +194,21 @@ namespace graph {
                 return true;  // Edge exists
             }
         }
-        return false;  // Edge does not exist
+        return false; 
     }
     
     
-    
-
+    // Getter for verticsCounter
     int Graph::getVerticsCounter() {
         return Graph::verticsCounter;
     }
 
+    // Getter for neighborsCounter
     int* Graph::getNeighborsCounter() {
         return neighborsCounter;
     }
 
+    // Getter for neighborsList
     neighborVertic** Graph::getNeighborsList(){
         return neighborsList;
     }
@@ -202,7 +220,8 @@ namespace graph {
         }
         return false;
     }
-
+    
+    // Getter for numOfEdges only for undirected graph
     int Graph::getNumOfEdges() {
         int sum = 0;
         for (int i = 0; i < verticsCounter; ++i) {

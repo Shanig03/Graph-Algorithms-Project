@@ -5,7 +5,7 @@ Email: shanig7531@gmail.com
 #include "Queue.hpp"
 #include <iostream>
 
-
+// Constructor: Initializes a queue with a given capacity
 Queue::Queue(int vertics) {
     capacity = vertics;
     arr = new int[capacity];
@@ -14,18 +14,23 @@ Queue::Queue(int vertics) {
     size = 0;  // Track the number of elements in the queue
 }
 
+// Destructor: Frees the dynamically allocated memory
 Queue::~Queue() {
     delete[] arr;
 }
 
+// Checks if the queue is empty
 bool Queue::isEmpty() {
     return size == 0;  // If size is 0, queue is empty
 }
 
+
+// Checks if the queue is full
 bool Queue::isFull() {
     return size == capacity;  // If size is equal to capacity, queue is full
 }
 
+// Adds an element to the queue
 void Queue::enqueue(int value) {
     if (isFull()) {
         std::cout << "Queue is full!" << std::endl;
@@ -39,6 +44,8 @@ void Queue::enqueue(int value) {
     size++;  // Increment the size
 }
 
+
+// Removes and returns the front element of the queue
 int Queue::dequeue() {
     if (isEmpty()) {
         std::cout << "Queue is empty!" << std::endl;
@@ -54,6 +61,8 @@ int Queue::dequeue() {
     return dequeuedValue;
 }
 
+
+// Returns the front element without removing it
 int Queue::peek() {
     if (isEmpty()) {
         std::cout << "Queue is empty!" << std::endl;
@@ -62,6 +71,8 @@ int Queue::peek() {
     return arr[front];
 }
 
+
+// Displays the elements of the queue
 void Queue::display() {
     if (isEmpty()) {
         std::cout << "Queue is empty!" << std::endl;

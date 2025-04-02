@@ -15,19 +15,25 @@ private:
     int capacity;
     int size;
 
-    void heapifyUp(int index);
-    void heapifyDown(int index);
+    void heapifyUp(int index); // Restores the heap property by moving an element up
+    void heapifyDown(int index); // Restores the heap property by moving an element down
 
 public:
-    PriorityQueue(int cap);
-    ~PriorityQueue();
+    PriorityQueue(int cap); // Constructor: Initializes a priority queue with a given capacity
 
-    void enqueue(int vertex, int dist);
-    int dequeue();
-    bool isEmpty();
-    void updateDistance(int vertex, int newDist);
-    int peek();
-    void display();
+    ~PriorityQueue(); // Destructor: Frees dynamically allocated memory
+
+    void enqueue(int vertex, int dist); // Inserts a vertex with a given distance into the priority queue
+    
+    int dequeue(); // Removes and returns the vertex with the smallest distance
+    
+    bool isEmpty(); // Checks if the priority queue is empty
+    
+    void updateDistance(int vertex, int newDist); // Updates the distance of a given vertex in the priority queue
+    
+    int peek(); // Returns the vertex with the smallest distance without removing it
+    
+    void display(); // Displays the contents of the priority queue
 };
 
 #endif 
