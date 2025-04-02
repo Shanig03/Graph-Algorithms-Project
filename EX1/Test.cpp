@@ -13,7 +13,7 @@ Email: shanig7531@gmail.com
 
 // Tests for Graph Functions
 TEST_CASE("Graph Functionality") {
-    
+
     graph::Graph g(5);
     g.addEdge(0, 1, 10);
     g.addEdge(1, 2, 20);
@@ -138,7 +138,28 @@ TEST_CASE("DFS funtionality"){
 
     CHECK(dfsTree2.getVerticsCounter() == 0);
 
+    // Checking for an unconnected graph
+    graph::Graph gr2(7);
+   
+    gr2.addEdge(0, 1, 4);
+    gr2.addEdge(0, 3, 3);
+    gr2.addEdge(1, 2, 5);
+    gr2.addEdge(2, 4, 5);
+    gr2.addEdge(5, 6, 8);
 
+    graph::Graph dfsForest = graph::Algorithms::DFS(gr2, 0);
+
+    // Checking if all the tree edge is in the dfsForest
+    CHECK(dfsForest.edgeCheck(0,1) == true);
+    CHECK(dfsForest.edgeCheck(1,2) == true);
+    CHECK(dfsForest.edgeCheck(2,4) == true);
+    CHECK(dfsForest.edgeCheck(0,3) == true);
+    CHECK(dfsForest.edgeCheck(5,6) == true);
+
+    CHECK(dfsForest.edgeCheck(3,5) == false);
+    CHECK(dfsForest.edgeCheck(2,1) == false);
+    CHECK(dfsForest.edgeCheck(3,0) == false);
+    CHECK(dfsForest.edgeCheck(5,2) == false);
 
 }
 

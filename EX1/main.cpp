@@ -10,23 +10,22 @@ Email: shanig7531@gmail.com
 
 int main() {
 
+    // Example for graph with 0 vertecis
     graph::Graph graphWithNoVertecies(0);
     std::cout << "Graph with 0 vertecies was created" << std::endl;
     graphWithNoVertecies.print_graph();
     std::cout << "Graph with 0 vertecies was printed" << std::endl;
 
-    
+
+    // Example for trying to initiate a graph with a negative number of vertecis
     try {
         graph::Graph graphWithNegativeVertecies(-10);   
-        std::cout << "Graph with -10 vertecies was created" << std::endl;
-        graphWithNegativeVertecies.print_graph();
     }
     catch(const std::invalid_argument& e){
         std::cerr << e.what() << '\n';
     }
     
-    // Demonstraiting the usage of the Graph and Algorithms classes
-
+    // Demonstraiting the usage of a regular Graph and Algorithms classes
     graph::Graph g(6);
     g.addEdge(0, 1, 4);
     g.addEdge(0, 2, 3);
@@ -111,6 +110,26 @@ int main() {
     std::cout << "\n Kruskal: \n";
     kruskalTree2.print_graph();
 
+
+    // Graph with 2 connectivity components
+    graph::Graph gr2(7);
+   
+    gr2.addEdge(0, 1, 4);
+    gr2.addEdge(0, 3, 3);
+    gr2.addEdge(1, 2, 5);
+    gr2.addEdge(2, 4, 5);
+    gr2.addEdge(5, 6, 8);
+    
+
+    // Printing the output graph of the DFS algorithm, should be a forest
+    graph::Graph dfsForest = graph::Algorithms::DFS(gr2, 0);
+    std::cout << "\n DFS (from vertic 0) for unconnected graph: \n";
+    dfsForest.print_graph(); 
+
+    // Printing the output graph of the BFS algorithm
+    graph::Graph bfsTree3 = graph::Algorithms::BFS(gr2,0);
+    std::cout << "\n BFS (from vertic 0) for unconnected graph: \n";
+    bfsTree3.print_graph();
 
     return 0;
    

@@ -68,19 +68,28 @@ namespace graph {
             Graph g(0);
             return g;
         }
-
+    
         // Creating the lists needed for the algorithm and the tree for the algorithm output
         int numVertices = graph.getVerticsCounter();
         Graph dfsTree(numVertices);  // The tree graph to return
         bool* visited = new bool[numVertices]();  // Initialize all to false
-        
-        // Call the recursive DFS helper function
-        dfsVisit(graph, startVertex, visited, dfsTree);
-        
-        // Deleting the allocated memory
+    
+        // Perform DFS starting from the given startVertex
+        if (!visited[startVertex]) {
+            dfsVisit(graph, startVertex, visited, dfsTree);
+        }
+    
+        // Ensure all disconnected components are included in the forest
+        for (int v = 0; v < numVertices; v++) {
+            if (!visited[v]) {
+                dfsVisit(graph, v, visited, dfsTree);
+            }
+        }
+    
         delete[] visited;
         return dfsTree;
     }
+    
 
     
     // Recursive helper function for DFS algorithm
