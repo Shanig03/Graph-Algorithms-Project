@@ -24,7 +24,7 @@ The `Graph` class provides a way to represent a weighted graph using adjacency l
 #### - Graph Class Usage Example In Main.
 
 ### - For Implementing the Algorithms I Also Implemented This Classes:
- `Queue` , `PriorityQueue` and `UnionFind`.
+ `Queue` , `PriorityQueue` and `UnionFind`. Each one of them is implemented in a different file with a fitting name.
 
 ## Algorithms Implementation
 
