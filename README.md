@@ -70,7 +70,7 @@ The tests implementatin is in the `Test.cpp` file.
 
 The project includes a `Makefile` that runs the project using the clang++ compiler with the following commands:
 
-- `make Main` - Compiles the main program.
+- `make Main` - Compiles the main program, which contains some usage examples.
 - `make test` - Compiles and runs the test suite using Doctest.
 - `make valgrind` - Runs the program with Valgrind for memory leak detection.
 - `make clean` - Removes all compiled files.
