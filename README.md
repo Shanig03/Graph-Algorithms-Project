@@ -14,7 +14,7 @@ This project implements a graph data structure using adjacency lists, along with
 
 ## Graph Implementation
 
-The `Graph` class provides a way to represent a weighted graph using adjacency lists stored as dynamically allocated arrays.
+The `Graph` class provides a way to represent a weighted graph using adjacency lists stored as dynamically allocated arrays. It represent each neighbor using the `neighborVertic` struct i created.
 
 ### Features:
 
@@ -30,7 +30,7 @@ The `Graph` class provides a way to represent a weighted graph using adjacency l
 
 ## Algorithms Implementation
 
-The `Algorithms` class provides various graph algorithms:
+The static `Algorithms` class provides various graph algorithms:
 
 ### 1. **Breadth-First Search (BFS)**
 
@@ -100,5 +100,5 @@ make clean
 ```
 ## Summary
 
-This project demonstrates a dynamic memory-based approach to implementing graphs and graph algorithms in C++. It avoids STL containers in favor of arrays. It also include graphs and algorithms demonstration and testing.
+This project demonstrates a dynamic memory-based approach to implementing graphs and graph algorithms in C++. STL containers were avoided intentionally (except for arrays), using custom data structures only- Queue, PriorityQueue and UnionFind. It also include graphs and algorithms, demonstration and testing and valgrind check for detecting memory leaks.
 
