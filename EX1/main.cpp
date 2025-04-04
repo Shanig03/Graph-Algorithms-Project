@@ -8,6 +8,43 @@ Email: shanig7531@gmail.com
 #include "Algorithms.hpp"
 #include "PriorityQueue.hpp"
 
+
+// Function to run all the algorithms for a graph
+void runAlgorithms(graph::Graph& g, const std::string& graphName, int src = 0) {
+    std::cout << "\n~~~ " << graphName << " ~~~\n";
+    std::cout << " The original Graph: " << std::endl;
+    g.print_graph();
+
+    // Printing the output graph of the BFS algorithm
+    std::cout << "\n BFS - from vertex " << src << ":\n";
+    graph:: Graph bfsTree = graph::Algorithms::BFS(g, src);
+    bfsTree.print_graph();
+
+    // Printing the output graph of the DFS algorithm, might be a forest
+    std::cout << "\n DFS - from vertex " << src << ": \n";
+    graph::Graph dfsTree = graph::Algorithms::DFS(g, src);
+    dfsTree.print_graph();
+
+    // Printing the output graph of the Dijkstra algorithm (shortests paths tree)
+    std::cout << "\n Dijkstra - from vertex " << src << ": \n";
+    graph::Graph dijkstraTree = graph::Algorithms::dijkstra(g, src);
+    dijkstraTree.print_graph();
+
+    // Printing the output graph of the Prim algorithm (minimum spanning tree)
+    std::cout << "\n Prim: \n";
+    graph::Graph primTree = graph::Algorithms::prim(g);
+    primTree.print_graph();
+
+    // Printing the output graph of the Kruskal algorithm (minimum spanning tree)
+    std::cout << "\n Kruskal: \n";
+    graph::Graph kruskalTree = graph::Algorithms::kruskal(g);
+    kruskalTree.print_graph();
+
+    std::cout << "=====================" << std::endl;
+}
+
+
+
 int main() {
 
     // Example for graph with 0 vertecis
@@ -24,113 +61,63 @@ int main() {
     catch(const std::invalid_argument& e){
         std::cerr << e.what() << '\n';
     }
+
+
     
-    // Demonstraiting the usage of a regular Graph and Algorithms classes
-    graph::Graph g(6);
-    g.addEdge(0, 1, 4);
-    g.addEdge(0, 2, 3);
-    g.addEdge(1, 2, 1);
-    g.addEdge(1, 3, 2);
-    g.addEdge(2, 3, 4);
-    g.addEdge(3, 4, 2);
-    g.addEdge(4, 5, 6);
+    // Demonstraiting the usage of Graph and Algorithms classes
 
+    // Regular graph
+    graph::Graph regularGraph(6);
+    regularGraph.addEdge(0, 1, 4);
+    regularGraph.addEdge(0, 2, 3);
+    regularGraph.addEdge(1, 2, 1);
+    regularGraph.addEdge(1, 3, 2);
+    regularGraph.addEdge(2, 3, 4);
+    regularGraph.addEdge(3, 4, 2);
+    regularGraph.addEdge(4, 5, 6);
 
-    // Printing the original graph
-    std::cout << "\nOriginal Graph:" << std::endl;
-    g.print_graph();
+    runAlgorithms(regularGraph,"Regular Graph", 0);
 
+    graph::Graph cycleGraph(5);
+    cycleGraph.addEdge(0, 1, 3);
+    cycleGraph.addEdge(1, 2, 7);
+    cycleGraph.addEdge(2, 3, 6);
+    cycleGraph.addEdge(3, 4, 5);
+    cycleGraph.addEdge(4, 1, 4);
 
-    // Printing the output graph of the BFS algorithm
-    graph::Graph bfsTree = graph::Algorithms::BFS(g,0);
-    std::cout << "\n BFS (from vertic 0): \n";
-    bfsTree.print_graph();
-
-    // Printing the output graph of the DFS algorithm
-    graph::Graph dfsTree = graph::Algorithms::DFS(g, 0);
-    std::cout << "\n DFS (from vertic 0): \n";
-    dfsTree.print_graph();
-
-
-    // Printing the output graph of the Dijkstra algorithm
-    graph::Graph dijkstraTree = graph::Algorithms::dijkstra(g, 0);
-    std::cout << "\n Dijkstra (from vertic 0): \n";
-    dijkstraTree.print_graph();
-
-    // Printing the output graph of the Prim algorithm
-    graph::Graph primTree = graph::Algorithms::prim(g);
-    std::cout << "\n Prim: \n";
-    primTree.print_graph();
-
-    // Printing the output graph of the Kruskal algorithm
-    graph::Graph kruskalTree = graph::Algorithms::kruskal(g);
-    std::cout << "\n Kruskal: \n";
-    kruskalTree.print_graph();
+    runAlgorithms(cycleGraph, "Cyclic Graph", 0);
 
 
     // Graph with negative weights
-    graph::Graph gr(8);
-    gr.addEdge(0, 1, -4);
-    gr.addEdge(0, 2, 3);
-    gr.addEdge(1, 2, -1);
-    gr.addEdge(1, 3, 2);
-    gr.addEdge(2, 3, -4);
-    gr.addEdge(3, 4, 2);
-    gr.addEdge(4, 5, -6);
-    gr.addEdge(6, 5, -2);
-    gr.addEdge(7, 5, 7);
+    graph::Graph negativeGraph(8);
+    negativeGraph.addEdge(0, 1, -4);
+    negativeGraph.addEdge(0, 2, 3);
+    negativeGraph.addEdge(1, 2, -1);
+    negativeGraph.addEdge(1, 3, 2);
+    negativeGraph.addEdge(2, 3, -4);
+    negativeGraph.addEdge(3, 4, 2);
+    negativeGraph.addEdge(4, 5, -6);
+    negativeGraph.addEdge(6, 5, -2);
+    negativeGraph.addEdge(7, 5, 7);
 
-
-    // Printing the original graph
-    std::cout << "\nOriginal Graph with negative weights:" << std::endl;
-    gr.print_graph();
-
-    // Should print "Dijkstra algorithem can't use negative weights" 
-    std::cout << "\n Dijkstra (with negative weights): \n";
-    graph::Graph dijTree = graph::Algorithms::dijkstra(gr, 3);
-    dijTree.print_graph();
-    
-    // Printing the output graph of the BFS algorithm
-    graph::Graph bfsTree2 = graph::Algorithms::BFS(gr,3);
-    std::cout << "\n BFS (from vertic 3): \n";
-    bfsTree2.print_graph();
-
-    // Printing the output graph of the DFS algorithm
-    graph::Graph dfsTree2 = graph::Algorithms::DFS(gr, 3);
-    std::cout << "\n DFS (from vertic 3): \n";
-    dfsTree2.print_graph();    
-
-    // Printing the output graph of the Prim algorithm
-    graph::Graph primTree2 = graph::Algorithms::prim(gr);
-    std::cout << "\n Prim: \n";
-    primTree2.print_graph();
-
-    // Printing the output graph of the Kruskal algorithm
-    graph::Graph kruskalTree2 = graph::Algorithms::kruskal(gr);
-    std::cout << "\n Kruskal: \n";
-    kruskalTree2.print_graph();
+    runAlgorithms(negativeGraph,"Graph with negative weights", 3);
 
 
     // Graph with 2 connectivity components
-    graph::Graph gr2(7);
+    graph::Graph unconnectedGraph(7);
    
-    gr2.addEdge(0, 1, 4);
-    gr2.addEdge(0, 3, 3);
-    gr2.addEdge(1, 2, 5);
-    gr2.addEdge(2, 4, 5);
-    gr2.addEdge(5, 6, 8);
+    unconnectedGraph.addEdge(0, 1, 4);
+    unconnectedGraph.addEdge(0, 3, 3);
+    unconnectedGraph.addEdge(1, 2, 5);
+    unconnectedGraph.addEdge(2, 4, 5);
+    unconnectedGraph.addEdge(5, 6, 8);
     
 
-    // Printing the output graph of the DFS algorithm, should be a forest
-    graph::Graph dfsForest = graph::Algorithms::DFS(gr2, 0);
-    std::cout << "\n DFS (from vertic 0) for unconnected graph: \n";
-    dfsForest.print_graph(); 
-
-    // Printing the output graph of the BFS algorithm
-    graph::Graph bfsTree3 = graph::Algorithms::BFS(gr2,0);
-    std::cout << "\n BFS (from vertic 0) for unconnected graph: \n";
-    bfsTree3.print_graph();
+    runAlgorithms(unconnectedGraph,"Unconnected Graph", 0);
+    
 
     return 0;
    
 }
+
+
